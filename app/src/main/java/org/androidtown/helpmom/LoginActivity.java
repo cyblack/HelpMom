@@ -18,6 +18,8 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         login = (Button)findViewById(R.id.login);
+
+
         register = (Button)findViewById(R.id.register);
 
 
