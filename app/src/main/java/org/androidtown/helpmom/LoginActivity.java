@@ -69,9 +69,6 @@ public class LoginActivity extends AppCompatActivity {
         String ID = id.getText().toString();
         String PW = pw.getText().toString();
 
-        Intent loginIntent = new Intent(LoginActivity.this, LobbyActivity.class);
-        startActivity(loginIntent);
-
         new android.os.Handler().postDelayed(
                 new Runnable() {
                     public void run() {
@@ -81,6 +78,7 @@ public class LoginActivity extends AppCompatActivity {
                         progressDialog.dismiss();
                     }
                 }, 4000);
+
     }
 
         protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -93,19 +91,20 @@ public class LoginActivity extends AppCompatActivity {
             }
         }
     }
-    public void onBackPressed() {
+    /*public void onBackPressed() {
         // disable going back to the MainActivity
         moveTaskToBack(true);
-    }
+    }*/
 
     public void onLoginSuccess() {
         login.setEnabled(true);
+        Intent loginIntent = new Intent(LoginActivity.this, LobbyActivity.class);
+        startActivity(loginIntent);
         finish();
     }
 
     public void onLoginFailed() {
         Toast.makeText(getBaseContext(), "Login failed", Toast.LENGTH_LONG).show();
-
         login.setEnabled(true);
     }
 
