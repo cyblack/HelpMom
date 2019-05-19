@@ -83,6 +83,7 @@ public class RegisterActivity extends AppCompatActivity {
         registerBtn.setEnabled(true);
         setResult(RESULT_OK, null);
         Intent registerIntent = new Intent(RegisterActivity.this, LoginActivity.class);
+        Toast.makeText(getBaseContext(), "Register success", Toast.LENGTH_LONG).show();
         startActivity(registerIntent);
         finish();
     }
