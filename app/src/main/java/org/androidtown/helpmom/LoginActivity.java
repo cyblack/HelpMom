@@ -10,7 +10,7 @@ import android.widget.ImageView;
 public class LoginActivity extends AppCompatActivity {
 
 
-    private Button login,register;
+    private Button login,register,exit;
     private ImageView im2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,7 +21,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
         register = (Button)findViewById(R.id.register);
-
+        exit=(Button)findViewById(R.id.exit);
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override
