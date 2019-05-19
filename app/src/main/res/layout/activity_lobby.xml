@@ -1,22 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginActivity"
-    >
+    android:orientation="vertical"
+    tools:context=".LoginActivity">
 
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text ="로비화면"
-        />
+        android:id="@+id/txtView1_lobby_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:text="로비화면"
+        android:textSize="30sp" />
 
-</LinearLayout>
+    <LinearLayout
+        android:id="@+id/linearLayout_Lobby1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txtView1_lobby_title"
+        android:orientation="horizontal"
+        android:gravity="right">
+
+        <TextView
+            android:id="@+id/txtView_lobby_userID"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="유저 ID"
+            android:textSize="20sp"
+            android:layout_gravity="right"
+            android:layout_marginRight="10dp" />
+
+        <TextView
+            android:id="@+id/txtView_lobby_userNickName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="유저 닉네임"
+            android:textSize="20sp"
+            android:layout_gravity="right" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout_Lobby2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linearLayout_Lobby1">
+
+        <Button
+            android:id="@+id/btn_createRoom"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="방 생성하기"
+            android:textSize="18dp" />
+
+        <Button
+            android:id="@+id/btn_joinRoom"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="방 들어가기"
+            android:textSize="18dp" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_marginTop="15dp"
+        android:id="@+id/txtView_showRoomList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linearLayout_Lobby2"
+        android:text="참여한 방"
+        android:textSize="22dp" />
+
+    <ListView
+        android:id="@+id/listView_roomList"
+        android:layout_width="wrap_content"
+        android:layout_height="300dp"
+        android:layout_above="@+id/btn_logout_lobby"
+        android:layout_below="@+id/txtView_showRoomList"></ListView>
+
+    <Button
+        android:id="@+id/btn_logout_lobby"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:text="로그아웃" />
+
+</RelativeLayout>
 
 
 
