@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".RoomCreateActivity"
+    >
+    <TextView
+        android:id="@+id/txtView1_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:gravity="center"
+        android:text="방 만들기"
+        android:textAllCaps="false"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        />
+
+    <View
+        android:id="@+id/stupid_line"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_below="@+id/txtView1_title"
+        android:layout_marginTop="10dp"
+        android:background="#211d19">
+    </View>
+
+
+    <LinearLayout
+        android:id="@+id/sub_linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/stupid_line"
+        android:layout_marginTop="15dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:paddingLeft="5dp"
+            android:text="방 제목"
+            />
+        <EditText
+            android:id="@+id/editText_roomNameInput"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:hint="방 제목을 입력하세요"
+            android:singleLine="true"
+            />
+
+        <TextView
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:paddingLeft="5dp"
+            android:text="방 비밀번호"
+            />
+
+        <EditText
+            android:id="@+id/editText_roomPwInput"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:hint="비밀 번호를 입력하세요"
+            android:singleLine="true" />
+
+        <TextView
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:paddingLeft="5dp"
+            android:text="비밀번호 확인"
+            android:textSize="15sp"
+            />
+
+        <EditText
+            android:id="@+id/editText_roomPwInputRe"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:hint="비밀번호를 다시 확인하세요"
+            android:singleLine="true"
+            />
+
+        <Button
+            android:id="@+id/btn_create"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:background="#c2f9f5"
+            android:text="방 생성"
+            android:textColor="@color/colorAccent"
+            android:textSize="20sp"
+            />
+
+        <Button
+            android:id="@+id/btn_cancel"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="#f7d98c"
+            android:text="취소"
+            android:textColor="@color/colorAccent"
+            android:textSize="20sp"
+            />
+
+
+
+
+    </LinearLayout>
+
+
+
+</RelativeLayout>
