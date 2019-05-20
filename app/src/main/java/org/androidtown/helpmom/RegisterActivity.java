@@ -11,6 +11,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 public class RegisterActivity extends AppCompatActivity {
     private static final String TAG = "RegisterActivity";
     EditText name;
@@ -60,22 +66,55 @@ public class RegisterActivity extends AppCompatActivity {
         progressDialog.setMessage("Creating Account...");
         progressDialog.show();
 
+        new android.os.Handler().postDelayed(
+                new Runnable() {
+                    public void run() {
+                        // On complete call either onRegisterSuccess or onRegisterFailed
+                        // depending on success
+                        onRegister();
+                        onRegisterSuccess();
+                        // onRegisterFailed();
+                        progressDialog.dismiss();
+                    }
+                }, 4000);
+
+    }
+
+    public void onRegister(){
+
         String NAME = name.getText().toString();
         String ID = id.getText().toString();
         String PW = pw.getText().toString();
 
         // TODO: Implement your own register logic here.
 
-        new android.os.Handler().postDelayed(
-                new Runnable() {
-                    public void run() {
-                        // On complete call either onRegisterSuccess or onRegisterFailed
-                        // depending on success
-                        onRegisterSuccess();
-                        // onRegisterFailed();
-                        progressDialog.dismiss();
-                    }
-                }, 4000);
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://ec2-54-180-79-126.ap-northeast-2.compute.amazonaws.com:3000/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        ApiService service = retrofit.create(ApiService.class);
+        Call<RegisterResult> call = service.getRegister(NAME,ID,PW);
+
+        call.enqueue(new Callback<RegisterResult>() {
+            @Override
+            public void onResponse(Call<RegisterResult> call, Response<RegisterResult> response) {
+
+
+                if(!response.isSuccessful()){
+                    Toast.makeText(getApplicationContext(), "code " + response.code(), Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                RegisterResult r = response.body();
+                Toast.makeText(getApplicationContext(), "result :  " + r.getRes(), Toast.LENGTH_SHORT).show();
+            }
+            @Override
+            public void onFailure(Call<RegisterResult> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "Fail " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                onRegisterFailed();
+            }
+        });
     }
 
 
@@ -92,6 +131,7 @@ public class RegisterActivity extends AppCompatActivity {
         Toast.makeText(getBaseContext(), "Register failed", Toast.LENGTH_LONG).show();
         registerBtn.setEnabled(true);
     }
+//
 
     public boolean validate() {
         boolean valid = true;

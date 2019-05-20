@@ -12,6 +12,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 public class LoginActivity extends AppCompatActivity {
 
     private static final int REQUEST_SIGNUP = 0;
@@ -66,8 +72,8 @@ public class LoginActivity extends AppCompatActivity {
         progressDialog.show();
 
 
-        String ID = id.getText().toString();
-        String PW = pw.getText().toString();
+
+
 
         new android.os.Handler().postDelayed(
                 new Runnable() {
@@ -78,19 +84,51 @@ public class LoginActivity extends AppCompatActivity {
                         progressDialog.dismiss();
                     }
                 }, 4000);
-
     }
 
-        protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_SIGNUP) {
             if (resultCode == RESULT_OK) {
 
                 // TODO: Implement successful signup logic here
-                // By default we just finish the Activity and log them in automatically
+
+                String ID = id.getText().toString();
+                String PW = pw.getText().toString();
+
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl("http://ec2-54-180-79-126.ap-northeast-2.compute.amazonaws.com:3000/")
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+
+                ApiService service = retrofit.create(ApiService.class);
+                Call<RegisterResult> call = service.getLogin(ID,PW);
+
+                call.enqueue(new Callback<RegisterResult>() {
+                    @Override
+                    public void onResponse(Call<RegisterResult> call, Response<RegisterResult> response) {
+
+
+                        if(!response.isSuccessful()){
+                            Toast.makeText(getApplicationContext(), "code " + response.code(), Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+
+                        RegisterResult r = response.body();
+                        Toast.makeText(getApplicationContext(), "result :  " + r.getRes(), Toast.LENGTH_SHORT).show();
+                        onLoginSuccess();
+                    }
+                    @Override
+                    public void onFailure(Call<RegisterResult> call, Throwable t) {
+                        Toast.makeText(getApplicationContext(), "Fail " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                        onLoginFailed();
+                    }
+                });
+
                 this.finish();
             }
         }
     }
+
     /*public void onBackPressed() {
         // disable going back to the MainActivity
         moveTaskToBack(true);
