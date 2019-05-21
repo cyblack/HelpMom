@@ -24,7 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textCapWords"
-            android:hint="Name" />
+            android:hint="이름" />
     </android.support.design.widget.TextInputLayout>
 
     <!-- Email Label -->
@@ -37,7 +37,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textEmailAddress"
-            android:hint="ID" />
+            android:hint="아이디" />
     </android.support.design.widget.TextInputLayout>
 
     <!-- Password Label -->
@@ -50,7 +50,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword"
-            android:hint="Password"/>
+            android:hint="비밀번호"/>
     </android.support.design.widget.TextInputLayout>
 
     <!-- Register Button -->
@@ -61,13 +61,13 @@
         android:layout_marginTop="24dp"
         android:layout_marginBottom="24dp"
         android:padding="12dp"
-        android:text="Create Account"/>
+        android:text="가입"/>
 
     <TextView android:id="@+id/link_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="24dp"
-        android:text="Already a member? Login"
+        android:text="돌아가기"
         android:gravity="center"
         android:textSize="16dip"/>
 

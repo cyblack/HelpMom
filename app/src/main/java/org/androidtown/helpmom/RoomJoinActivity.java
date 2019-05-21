@@ -7,6 +7,7 @@ import android.view.WindowManager;
 
 public class RoomJoinActivity extends AppCompatActivity {
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
