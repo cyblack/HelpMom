@@ -23,6 +23,11 @@ public class RoomCreateActivity extends AppCompatActivity {
         EditText createName=(EditText) findViewById(R.id.createName);
         EditText createPW=(EditText)findViewById(R.id.createPW);
 
-        // 방생성버튼 이벤트리스너
+        create.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                //TODO: IMPLEMENTATION OF REQUEST DATABASE
+                finish();
+            }
+        });
     }
 }
