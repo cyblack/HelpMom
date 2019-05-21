@@ -94,7 +94,7 @@ public class RegisterActivity extends AppCompatActivity {
                 .build();
 
         ApiService service = retrofit.create(ApiService.class);
-        Call<RegisterResult> call = service.getRegister(NAME,ID,PW);
+        Call<RegisterResult> call = service.getRegister(ID,PW,NAME);
 
         call.enqueue(new Callback<RegisterResult>() {
             @Override

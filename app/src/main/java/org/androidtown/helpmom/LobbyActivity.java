@@ -1,7 +1,9 @@
 package org.androidtown.helpmom;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -38,7 +40,13 @@ public class LobbyActivity extends AppCompatActivity {
 
 
 
-
+        btn_joinRoom.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                startActivity(new Intent(LobbyActivity.this, RoomJoinActivity.class));
+            }
+        });
 
     }
+
 }
