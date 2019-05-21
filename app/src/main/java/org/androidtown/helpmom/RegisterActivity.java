@@ -77,10 +77,6 @@ public class RegisterActivity extends AppCompatActivity {
                         progressDialog.dismiss();
                     }
                 }, 4000);
-
-
-
-
     }
 
     public void onRegister(){
@@ -97,18 +93,15 @@ public class RegisterActivity extends AppCompatActivity {
                 .build();
 
         ApiService service = retrofit.create(ApiService.class);
-        Call<RegisterResult> call = service.getRegister(NAME,ID,PW);
+        Call<RegisterResult> call = service.getRegister(ID,PW,NAME);
 
         call.enqueue(new Callback<RegisterResult>() {
             @Override
             public void onResponse(Call<RegisterResult> call, Response<RegisterResult> response) {
-
-
                 if(!response.isSuccessful()){
                     Toast.makeText(getApplicationContext(), "code " + response.code(), Toast.LENGTH_SHORT).show();
                     return;
                 }
-
                 RegisterResult r = response.body();
                 Toast.makeText(getApplicationContext(), "result :  " + r.getRes(), Toast.LENGTH_SHORT).show();
             }
