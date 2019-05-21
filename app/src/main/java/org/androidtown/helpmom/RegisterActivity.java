@@ -78,6 +78,9 @@ public class RegisterActivity extends AppCompatActivity {
                     }
                 }, 4000);
 
+
+
+
     }
 
     public void onRegister(){
