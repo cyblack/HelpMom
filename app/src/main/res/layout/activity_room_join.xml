@@ -1,43 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:paddingTop="56dp"
-    android:paddingLeft="24dp"
-    android:paddingRight="24dp">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
 
-    <ImageView android:src="@drawable/ic_launcher_foreground"
+    <TextView
+        android:id="@+id/joinTitle"
         android:layout_width="wrap_content"
-        android:layout_height="72dp"
-        android:layout_marginBottom="24dp"
-        android:layout_gravity="center_horizontal" />
+        android:layout_height="wrap_content"
+        android:text="그룹 가입"
+        android:textSize="40dp"
+         />
 
-    <!--  Name Label -->
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp">
-        <EditText android:id="@+id/input_name"
+
+        <EditText android:id="@+id/joinName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textCapWords"
-            android:hint="이름" />
+            android:inputType="text"
+            android:hint="그룹 이름"/>
+
     </android.support.design.widget.TextInputLayout>
 
-    <!-- Email Label -->
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp">
-        <EditText android:id="@+id/input_id"
+
+        <EditText android:id="@+id/joinID"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textEmailAddress"
-            android:hint="아이디" />
+            android:inputType="text"
+            android:hint="리더 아이디"
+            />
+
     </android.support.design.widget.TextInputLayout>
 
     <!-- Password Label -->
@@ -46,29 +49,22 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp">
-        <EditText android:id="@+id/input_pw"
+
+        <EditText android:id="@+id/joinPW"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword"
-            android:hint="비밀번호"/>
+            android:hint="그룹 비밀번호"/>
+
     </android.support.design.widget.TextInputLayout>
 
-    <!-- Register Button -->
     <android.support.v7.widget.AppCompatButton
-        android:id="@+id/registerBtn"
+        android:id="@+id/joinBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:layout_marginBottom="24dp"
         android:padding="12dp"
         android:text="가입"/>
-
-    <TextView android:id="@+id/link_login"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
-        android:text="돌아가기"
-        android:gravity="center"
-        android:textSize="16dip"/>
 
 </LinearLayout>

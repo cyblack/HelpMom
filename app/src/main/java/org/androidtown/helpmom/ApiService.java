@@ -24,5 +24,4 @@ public interface ApiService {
     @POST("login")
     Call<RegisterResult> getLogin(@Field("id") String id,
                         @Field("pwd") String pwd);
-
 }
