@@ -6,5 +6,4 @@ public class RegisterResult {
     public String getRes() {
         return res;
     }
-
 }
