@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -37,6 +38,14 @@ public class LobbyActivity extends AppCompatActivity {
         ArrayAdapter<String> arrayAdapter;
         arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, joinedRoomList);
         listView_joinedRoom.setAdapter(arrayAdapter);
+
+        listView_joinedRoom.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent groupIntent=new Intent(LobbyActivity.this,GroupActivity.class);
+                startActivity(groupIntent);
+            }
+        });
 
         btn_createRoom.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
