@@ -79,11 +79,55 @@ public class LoginActivity extends AppCompatActivity {
                 new Runnable() {
                     public void run() {
                         // On complete call either onLoginSuccess or onLoginFailed
-                        onLoginSuccess();
+                      //  onLoginSuccess();
                         // onLoginFailed();
+                        onRequest();
                         progressDialog.dismiss();
                     }
                 }, 4000);
+    }
+
+    private void onRequest(){
+        String ID = id.getText().toString();
+        String PW = pw.getText().toString();
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://ec2-54-180-79-126.ap-northeast-2.compute.amazonaws.com:3000/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        ApiService service = retrofit.create(ApiService.class);
+        Call<RegisterResult> call = service.getLogin(ID,PW);
+
+        call.enqueue(new Callback<RegisterResult>() {
+            @Override
+            public void onResponse(Call<RegisterResult> call, Response<RegisterResult> response) {
+
+
+                if(!response.isSuccessful()){
+                    Toast.makeText(getApplicationContext(), "code " + response.code(), Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                RegisterResult r = response.body();
+
+
+                if(r.getRes().equals("fail")){
+                    Toast.makeText(getApplicationContext(), "아이디 또는 비밀번호가 다릅니다. ", Toast.LENGTH_SHORT).show();
+                    onLoginFailed();
+                }else {
+
+                    Toast.makeText(getApplicationContext(), "result2 :  " + r.getRes(), Toast.LENGTH_SHORT).show();
+
+                    onLoginSuccess(r.getId(),r.getName());
+                }
+            }
+            @Override
+            public void onFailure(Call<RegisterResult> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "Fail " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                onLoginFailed();
+            }
+        });
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -91,38 +135,6 @@ public class LoginActivity extends AppCompatActivity {
             if (resultCode == RESULT_OK) {
 
                 // TODO: Implement successful signup logic here
-
-                String ID = id.getText().toString();
-                String PW = pw.getText().toString();
-
-                Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl("http://ec2-54-180-79-126.ap-northeast-2.compute.amazonaws.com:3000/")
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .build();
-
-                ApiService service = retrofit.create(ApiService.class);
-                Call<RegisterResult> call = service.getLogin(ID,PW);
-
-                call.enqueue(new Callback<RegisterResult>() {
-                    @Override
-                    public void onResponse(Call<RegisterResult> call, Response<RegisterResult> response) {
-
-
-                        if(!response.isSuccessful()){
-                            Toast.makeText(getApplicationContext(), "code " + response.code(), Toast.LENGTH_SHORT).show();
-                            return;
-                        }
-
-                        RegisterResult r = response.body();
-                        Toast.makeText(getApplicationContext(), "result :  " + r.getRes(), Toast.LENGTH_SHORT).show();
-                        onLoginSuccess();
-                    }
-                    @Override
-                    public void onFailure(Call<RegisterResult> call, Throwable t) {
-                        Toast.makeText(getApplicationContext(), "Fail " + t.getMessage(), Toast.LENGTH_SHORT).show();
-                        onLoginFailed();
-                    }
-                });
 
                 this.finish();
             }
@@ -134,15 +146,17 @@ public class LoginActivity extends AppCompatActivity {
         moveTaskToBack(true);
     }*/
 
-    public void onLoginSuccess() {
+    public void onLoginSuccess(String id,String name) {
         login.setEnabled(true);
         Intent loginIntent = new Intent(LoginActivity.this, LobbyActivity.class);
+        loginIntent.putExtra("id",id);
+        loginIntent.putExtra("name",name);
         startActivity(loginIntent);
         finish();
     }
 
     public void onLoginFailed() {
-        Toast.makeText(getBaseContext(), "Login failed", Toast.LENGTH_LONG).show();
+       // Toast.makeText(getBaseContext(), "Login failed", Toast.LENGTH_LONG).show();
         login.setEnabled(true);
     }
 

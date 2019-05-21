@@ -28,5 +28,4 @@
             android:name=".RoomJoinActivity"
             android:theme="@style/Theme.AppCompat.Light.Dialog" />
     </application>
-
 </manifest>

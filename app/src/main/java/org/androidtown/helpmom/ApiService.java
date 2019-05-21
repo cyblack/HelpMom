@@ -12,16 +12,29 @@ import retrofit2.http.Path;
 public interface ApiService {
 
 
-    @GET("posts")
-    Call<List<RegisterResult>> getPosts();
-
+    //회원가입
     @FormUrlEncoded
     @POST("register")
     Call<RegisterResult> getRegister(@Field("id") String id,
                            @Field("pwd") String pwd, @Field("name") String name         );
 
+    //방생성
+    @FormUrlEncoded
+    @POST("createRoom")
+    Call<RegisterResult> getRoom(@Field("name") String name,
+                                  @Field("pwd") String pwd,
+                                 @Field("maker") String maker);
+
+
+    //로그인
     @FormUrlEncoded
     @POST("login")
     Call<RegisterResult> getLogin(@Field("id") String id,
                         @Field("pwd") String pwd);
+
+    //리스트 룸
+    @FormUrlEncoded
+    @POST("listRoom")
+    Call<RegisterResult> getListRoom(@Field("id") String id);
+
 }
