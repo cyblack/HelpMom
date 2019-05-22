@@ -39,6 +39,7 @@
             android:layout_height="wrap_content"
             android:inputType="text"
             android:hint="리더 아이디"
+            android:singleLine="true"/>
             />
 
     </android.support.design.widget.TextInputLayout>
@@ -54,7 +55,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword"
-            android:hint="그룹 비밀번호"/>
+            android:hint="그룹 비밀번호"
+            android:singleLine="true"
+            />
 
     </android.support.design.widget.TextInputLayout>
 

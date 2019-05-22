@@ -24,7 +24,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text"
-            android:hint="그룹 이름"/>
+            android:hint="그룹 이름"
+            android:singleLine="true"/>
+        />
 
     </android.support.design.widget.TextInputLayout>
 
