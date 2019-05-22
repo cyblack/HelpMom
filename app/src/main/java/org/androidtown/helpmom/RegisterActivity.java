@@ -63,7 +63,7 @@ public class RegisterActivity extends AppCompatActivity {
         final ProgressDialog progressDialog = new ProgressDialog(RegisterActivity.this,
                 R.style.Theme_AppCompat_DayNight_Dialog);
         progressDialog.setIndeterminate(true);
-        progressDialog.setMessage("Creating Account...");
+        progressDialog.setMessage("회원가입 중...");
         progressDialog.show();
 
         new android.os.Handler().postDelayed(
@@ -107,7 +107,7 @@ public class RegisterActivity extends AppCompatActivity {
             }
             @Override
             public void onFailure(Call<RegisterResult> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), "Fail " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "실패: " + t.getMessage(), Toast.LENGTH_SHORT).show();
                 onRegisterFailed();
             }
         });
@@ -118,13 +118,13 @@ public class RegisterActivity extends AppCompatActivity {
         registerBtn.setEnabled(true);
         setResult(RESULT_OK, null);
         Intent registerIntent = new Intent(RegisterActivity.this, LoginActivity.class);
-        Toast.makeText(getBaseContext(), "Register success", Toast.LENGTH_LONG).show();
+        Toast.makeText(getBaseContext(), "가입 성공", Toast.LENGTH_LONG).show();
         startActivity(registerIntent);
         finish();
     }
 
     public void onRegisterFailed() {
-        Toast.makeText(getBaseContext(), "Register failed", Toast.LENGTH_LONG).show();
+        Toast.makeText(getBaseContext(), "가입 실패", Toast.LENGTH_LONG).show();
         registerBtn.setEnabled(true);
     }
 //
@@ -137,21 +137,21 @@ public class RegisterActivity extends AppCompatActivity {
         String PW = pw.getText().toString();
 
         if (NAME.isEmpty() || name.length() < 3) {
-            name.setError("at least 3 characters");
+            name.setError("3자 이상 입력하세요");
             valid = false;
         } else {
             name.setError(null);
         }
 
         if (ID.isEmpty()) {
-            id.setError("enter a valid ID");
+            id.setError("아이디를 입력하세요");
             valid = false;
         } else {
             id.setError(null);
         }
 
         if (PW.isEmpty() || PW.length() < 4 || PW.length() > 10) {
-            pw.setError("between 4 and 10 alphanumeric characters");
+            pw.setError("4자리 이상 입력하세요");
             valid = false;
         } else {
             pw.setError(null);
