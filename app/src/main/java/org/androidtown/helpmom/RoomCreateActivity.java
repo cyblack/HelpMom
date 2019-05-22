@@ -61,7 +61,7 @@ public class RoomCreateActivity extends AppCompatActivity {
                         }
 
                         RegisterResult r = response.body();
-                        Toast.makeText(getApplicationContext(), "Room Create :  " + r.getRes(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "그룹 생성:  " + r.getRes(), Toast.LENGTH_SHORT).show();
                        // onLoginSuccess();
                         Intent intent = new Intent();
                         intent.putExtra("addRoomName",createName.getText().toString());
@@ -70,7 +70,7 @@ public class RoomCreateActivity extends AppCompatActivity {
                     }
                     @Override
                     public void onFailure(Call<RegisterResult> call, Throwable t) {
-                        Toast.makeText(getApplicationContext(), "Fail " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "실패: " + t.getMessage(), Toast.LENGTH_SHORT).show();
                        // onLoginFailed();
                     }
                 });

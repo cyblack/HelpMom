@@ -85,6 +85,14 @@ public class LobbyActivity extends AppCompatActivity {
             }
         });
 
+        btn_logOut.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                Intent logoutIntent= new Intent(LobbyActivity.this,LoginActivity.class);
+                startActivity(logoutIntent);
+                finish();
+            }
+        });
     }
 
     @Override
@@ -127,7 +135,7 @@ public class LobbyActivity extends AppCompatActivity {
             }
             @Override
             public void onFailure(Call<RegisterResult> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), "Fail " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "실패: " + t.getMessage(), Toast.LENGTH_SHORT).show();
                 // onLoginFailed();
             }
         });

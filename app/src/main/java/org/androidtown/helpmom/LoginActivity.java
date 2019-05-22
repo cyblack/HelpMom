@@ -68,7 +68,7 @@ public class LoginActivity extends AppCompatActivity {
         final ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this,
                 R.style.Theme_AppCompat_DayNight_Dialog);
         progressDialog.setIndeterminate(true);
-        progressDialog.setMessage("Authenticating...");
+        progressDialog.setMessage("로그인 중...");
         progressDialog.show();
 
 
@@ -124,7 +124,7 @@ public class LoginActivity extends AppCompatActivity {
             }
             @Override
             public void onFailure(Call<RegisterResult> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), "Fail " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "실패: " + t.getMessage(), Toast.LENGTH_SHORT).show();
                 onLoginFailed();
             }
         });
@@ -165,16 +165,15 @@ public class LoginActivity extends AppCompatActivity {
 
         String ID = id.getText().toString();
         String PW = pw.getText().toString();
-
         if (ID.isEmpty()) {
-            id.setError("enter a valid ID");
+            id.setError("형식이 올바르지 않습니다");
             valid = false;
         } else {
             id.setError(null);
         }
 
         if (PW.isEmpty() || PW.length() < 4 || PW.length() > 10) {
-            pw.setError("between 4 and 10 alphanumeric characters");
+            pw.setError("4자리 이상 입력하세요");
             valid = false;
         } else {
             pw.setError(null);
