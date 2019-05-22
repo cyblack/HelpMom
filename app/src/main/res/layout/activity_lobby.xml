@@ -7,21 +7,11 @@
     android:orientation="vertical"
     tools:context=".LoginActivity">
 
-
-    <TextView
-        android:id="@+id/txtView1_lobby_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:text="로비화면"
-        android:textSize="30sp" />
-
     <LinearLayout
         android:id="@+id/linearLayout_Lobby1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/txtView1_lobby_title"
+        android:layout_alignParentTop="true"
         android:orientation="horizontal"
         android:gravity="right">
 
@@ -29,18 +19,18 @@
             android:id="@+id/txtView_lobby_userID"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="아이디"
-            android:textSize="20sp"
             android:layout_gravity="right"
-            android:layout_marginRight="10dp" />
+            android:layout_marginRight="10dp"
+            android:text="아이디"
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/txtView_lobby_userNickName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="right"
             android:text="별명"
-            android:textSize="20sp"
-            android:layout_gravity="right" />
+            android:textSize="20sp" />
 
     </LinearLayout>
 
@@ -83,7 +73,7 @@
         android:layout_width="wrap_content"
         android:layout_height="300dp"
         android:layout_above="@+id/btn_logout_lobby"
-        android:layout_below="@+id/txtView_showRoomList"></ListView>
+        android:layout_below="@+id/txtView_showRoomList"/>
 
     <Button
         android:id="@+id/btn_logout_lobby"
@@ -93,7 +83,3 @@
         android:text="로그아웃" />
 
 </RelativeLayout>
-
-
-
-

@@ -27,13 +27,13 @@ public class LobbyActivity extends AppCompatActivity {
     ListView listView_joinedRoom;
     Button btn_createRoom, btn_joinRoom, btn_logOut;
     TextView id,nickname;
-    private String _id;
-    private  List<String> joinedRoomList;
+    String _id;
+    List<String> joinedRoomList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lobby);
-
+        setTitle("로비");
         // get Views
         btn_createRoom = (Button) findViewById(R.id.btn_createRoom);
         btn_joinRoom = (Button) findViewById(R.id.btn_joinRoom);
@@ -66,6 +66,7 @@ public class LobbyActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent groupIntent=new Intent(LobbyActivity.this,GroupActivity.class);
+                groupIntent.putExtra("name", joinedRoomList.get(position));
                 startActivity(groupIntent);
             }
         });

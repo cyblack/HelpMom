@@ -1,9 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".GroupActivity">
+    android:orientation="vertical"
+    >
 
-</android.support.constraint.ConstraintLayout>
+        <TextView
+            android:id="@+id/members"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="그룹원"
+            android:textSize="16dp"
+            />
+
+        <ListView
+            android:id="@+id/memberList"
+            android:layout_width="match_parent"
+            android:layout_height="92dp"
+            android:layout_below="@id/members"
+            />
+
+        <Button
+            android:id="@+id/taskListBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="할 일"
+            android:layout_below="@id/memberList"
+            />
+
+        <ListView
+            android:id="@+id/taskList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/taskListBtn"
+            >
+        </ListView>
+</RelativeLayout>
