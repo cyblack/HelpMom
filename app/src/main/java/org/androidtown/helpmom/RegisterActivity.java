@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -22,6 +23,7 @@ public class RegisterActivity extends AppCompatActivity {
     EditText name;
     EditText id;
     EditText pw;
+    EditText pwConfirm;
     Button registerBtn;
     TextView loginLink;
 
@@ -29,11 +31,14 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+
         name=(EditText)findViewById(R.id.input_name);
         id=(EditText)findViewById(R.id.input_id);
         pw=(EditText)findViewById(R.id.input_pw);
         registerBtn=(Button)findViewById(R.id.registerBtn);
         loginLink=(TextView)findViewById(R.id.link_login);
+        pwConfirm=(EditText)findViewById(R.id.input_pwConfirm);
 
         registerBtn.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -135,6 +140,7 @@ public class RegisterActivity extends AppCompatActivity {
         String NAME = name.getText().toString();
         String ID = id.getText().toString();
         String PW = pw.getText().toString();
+        String PW_CONFIRM = pwConfirm.getText().toString();
 
         if (NAME.isEmpty() || name.length() < 3) {
             name.setError("3자 이상 입력하세요");
@@ -155,6 +161,12 @@ public class RegisterActivity extends AppCompatActivity {
             valid = false;
         } else {
             pw.setError(null);
+        }
+        if(!PW.equals(PW_CONFIRM))
+        {
+            pw.setError("비밀번호가 일치하지 않습니다");
+            pwConfirm.setError("비밀번호가 일치하지 않습니다");
+            valid=false;
         }
 
         return valid;
