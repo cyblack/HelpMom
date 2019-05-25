@@ -5,6 +5,7 @@ public class RegisterResult {
     private String res,name,id;
     private String[] roomName;
     private String joinRoom;
+    private String[] member;
 
     public String getName() {
         return name;
@@ -23,4 +24,6 @@ public class RegisterResult {
     }
 
     public String getJoinRoom() {return joinRoom;}
+
+    public String[] getMember(){return member;}
 }
