@@ -33,4 +33,7 @@ public interface ApiService {
     @POST("listRoom")
     Call<RegisterResult> getListRoom(@Field("id") String id);
 
+    @FormUrlEncoded
+    @POST("joinRoom")
+    Call<RegisterResult> getJoin(@Field("id") String id, @Field("name") String name, @Field("pwd") String pwd,@Field("teamMate") String teamMate);
 }

@@ -23,39 +23,34 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class LobbyActivity extends AppCompatActivity {
-
     ListView listView_joinedRoom;
     Button btn_createRoom, btn_joinRoom, btn_logOut;
     TextView id,nickname;
-    private String _id;
-    private  List<String> joinedRoomList;
+    String _id;
+    List<String> joinedRoomList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lobby);
-
+        setTitle("로비");
         // get Views
-        btn_createRoom = (Button) findViewById(R.id.btn_createRoom);
-        btn_joinRoom = (Button) findViewById(R.id.btn_joinRoom);
-        btn_logOut = (Button) findViewById(R.id.btn_logout_lobby);
-        listView_joinedRoom = (ListView) findViewById(R.id.listView_roomList);
-        id = (TextView)findViewById(R.id.txtView_lobby_userID);
-        nickname = (TextView)findViewById(R.id.txtView_lobby_userNickName);
+        btn_createRoom = findViewById(R.id.btn_createRoom);
+        btn_joinRoom = findViewById(R.id.btn_joinRoom);
+        btn_logOut = findViewById(R.id.btn_logout_lobby);
+        listView_joinedRoom = findViewById(R.id.listView_roomList);
+        id = findViewById(R.id.txtView_lobby_userID);
+        nickname = findViewById(R.id.txtView_lobby_userNickName);
 
         Intent intent = getIntent();
-        _id = intent.getStringExtra("id").toString();
+        _id = intent.getStringExtra("id");
         id.setText(_id);
-        nickname.setText(intent.getStringExtra("name").toString());
+        nickname.setText(intent.getStringExtra("name"));
 
 
         // 참가된 방 리스트 data.
         joinedRoomList = new ArrayList<>();
         onRequestRoomList();
-
-
-//        joinedRoomList.add("A방");
-//        joinedRoomList.add("B방");
-
 
         // arrayAdaper로 String을 listView에 바인딩, data를 listView에 display함.
         ArrayAdapter<String> arrayAdapter;
@@ -66,6 +61,7 @@ public class LobbyActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent groupIntent=new Intent(LobbyActivity.this,GroupActivity.class);
+                groupIntent.putExtra("name", joinedRoomList.get(position));
                 startActivity(groupIntent);
             }
         });
@@ -81,7 +77,9 @@ public class LobbyActivity extends AppCompatActivity {
         btn_joinRoom.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                startActivity(new Intent(LobbyActivity.this, RoomJoinActivity.class));
+                Intent joinRoom=new Intent(LobbyActivity.this,RoomJoinActivity.class);
+                joinRoom.putExtra("id", _id);
+                startActivityForResult(joinRoom, 1);
             }
         });
 
@@ -99,12 +97,13 @@ public class LobbyActivity extends AppCompatActivity {
     protected void onActivityResult (int requestCode, int resultCode, Intent data) {
 
         if(requestCode==1){
-            if(resultCode==1){
+            if(resultCode==1) {
+                Toast.makeText(getApplicationContext(), "lobbyResult " + resultCode, Toast.LENGTH_SHORT).show();
+
                 joinedRoomList.add(data.getStringExtra("addRoomName"));
             }
         }
     }
-
 
     private void onRequestRoomList(){
         Retrofit retrofit = new Retrofit.Builder()
@@ -140,5 +139,4 @@ public class LobbyActivity extends AppCompatActivity {
             }
         });
     }
-
 }

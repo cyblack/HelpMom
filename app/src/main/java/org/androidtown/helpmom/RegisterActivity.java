@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -30,15 +31,16 @@ public class RegisterActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_register);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
-        name=(EditText)findViewById(R.id.input_name);
-        id=(EditText)findViewById(R.id.input_id);
-        pw=(EditText)findViewById(R.id.input_pw);
-        registerBtn=(Button)findViewById(R.id.registerBtn);
-        loginLink=(TextView)findViewById(R.id.link_login);
-        pwConfirm=(EditText)findViewById(R.id.input_pwConfirm);
+        name=findViewById(R.id.input_name);
+        id=findViewById(R.id.input_id);
+        pw=findViewById(R.id.input_pw);
+        registerBtn=findViewById(R.id.registerBtn);
+        loginLink=findViewById(R.id.link_login);
+        pwConfirm=findViewById(R.id.input_pwConfirm);
 
         registerBtn.setOnClickListener(new View.OnClickListener(){
             @Override

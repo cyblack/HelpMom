@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -31,13 +32,14 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_login);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
-        id=(EditText)findViewById(R.id.id);
-        pw=(EditText)findViewById(R.id.pw);
-        login = (Button)findViewById(R.id.login);
-        register = (TextView)findViewById(R.id.register);
+        id=findViewById(R.id.id);
+        pw=findViewById(R.id.pw);
+        login = findViewById(R.id.login);
+        register = findViewById(R.id.register);
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override
