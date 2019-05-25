@@ -35,12 +35,12 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
-        name=(EditText)findViewById(R.id.input_name);
-        id=(EditText)findViewById(R.id.input_id);
-        pw=(EditText)findViewById(R.id.input_pw);
-        registerBtn=(Button)findViewById(R.id.registerBtn);
-        loginLink=(TextView)findViewById(R.id.link_login);
-        pwConfirm=(EditText)findViewById(R.id.input_pwConfirm);
+        name=findViewById(R.id.input_name);
+        id=findViewById(R.id.input_id);
+        pw=findViewById(R.id.input_pw);
+        registerBtn=findViewById(R.id.registerBtn);
+        loginLink=findViewById(R.id.link_login);
+        pwConfirm=findViewById(R.id.input_pwConfirm);
 
         registerBtn.setOnClickListener(new View.OnClickListener(){
             @Override

@@ -19,6 +19,7 @@ public class RoomCreateActivity extends AppCompatActivity {
 
     Button createBtn;
     EditText createName, createPW;
+
     private String _id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,14 +28,14 @@ public class RoomCreateActivity extends AppCompatActivity {
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_room_create);
 
-        Button create=(Button)findViewById(R.id.createBtn);
-        final EditText createName=(EditText) findViewById(R.id.createName);
-        final EditText createPW=(EditText)findViewById(R.id.createPW);
+        createBtn=findViewById(R.id.createBtn);
+        createName=findViewById(R.id.createName);
+        createPW=findViewById(R.id.createPW);
 
         Intent intent = getIntent();
         _id = intent.getStringExtra("id");
 
-        create.setOnClickListener(new View.OnClickListener(){
+        createBtn.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 //TODO: IMPLEMENTATION OF REQUEST DATABASE
 
@@ -74,8 +75,6 @@ public class RoomCreateActivity extends AppCompatActivity {
                        // onLoginFailed();
                     }
                 });
-
-
             }
         });
     }

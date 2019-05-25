@@ -17,9 +17,9 @@ public class GroupActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_group);
-        memberList=(ListView)findViewById(R.id.memberList);
-        taskList=(ListView)findViewById(R.id.taskList);
-        taskListButton=(Button)findViewById(R.id.taskListBtn);
+        memberList=findViewById(R.id.memberList);
+        taskList=findViewById(R.id.taskList);
+        taskListButton=findViewById(R.id.taskListBtn);
 
         Intent intent=getIntent();
         setTitle(intent.getStringExtra("name"));

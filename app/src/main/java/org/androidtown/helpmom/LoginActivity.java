@@ -36,10 +36,10 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
-        id=(EditText)findViewById(R.id.id);
-        pw=(EditText)findViewById(R.id.pw);
-        login = (Button)findViewById(R.id.login);
-        register = (TextView)findViewById(R.id.register);
+        id=findViewById(R.id.id);
+        pw=findViewById(R.id.pw);
+        login = findViewById(R.id.login);
+        register = findViewById(R.id.register);
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override
