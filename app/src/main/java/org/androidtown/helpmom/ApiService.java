@@ -36,4 +36,12 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("joinRoom")
     Call<RegisterResult> getJoin(@Field("id") String id, @Field("name") String name, @Field("pwd") String pwd,@Field("teamMate") String teamMate);
+
+    @FormUrlEncoded
+    @POST("memberList")
+    Call<RegisterResult> getMember(@Field("name") String name);
+
+//    @FormUrlEncoded
+//    @POST("createTask")
+//    Call<RegisterResult> getTask(@Field("title")String title);
 }

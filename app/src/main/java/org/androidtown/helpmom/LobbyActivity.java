@@ -28,6 +28,7 @@ public class LobbyActivity extends AppCompatActivity {
     TextView id,nickname;
     String _id;
     List<String> joinedRoomList;
+    ArrayAdapter<String> arrayAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +54,7 @@ public class LobbyActivity extends AppCompatActivity {
         onRequestRoomList();
 
         // arrayAdaper로 String을 listView에 바인딩, data를 listView에 display함.
-        ArrayAdapter<String> arrayAdapter;
+
         arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, joinedRoomList);
         listView_joinedRoom.setAdapter(arrayAdapter);
 
@@ -62,6 +63,7 @@ public class LobbyActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent groupIntent=new Intent(LobbyActivity.this,GroupActivity.class);
                 groupIntent.putExtra("name", joinedRoomList.get(position));
+                groupIntent.putExtra("id", _id);
                 startActivity(groupIntent);
             }
         });
@@ -138,5 +140,9 @@ public class LobbyActivity extends AppCompatActivity {
                 // onLoginFailed();
             }
         });
+    }
+    protected void onResume() {
+        super.onResume();
+        arrayAdapter.notifyDataSetChanged();
     }
 }
