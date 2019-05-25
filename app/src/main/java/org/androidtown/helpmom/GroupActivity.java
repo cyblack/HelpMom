@@ -51,6 +51,8 @@ public class GroupActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //TODO: 할일 목록 창 띄우기
+                Intent taskIntent=new Intent(GroupActivity.this,ManageTaskActivty.class);
+                startActivityForResult(taskIntent, 2);
             }
         });
     }
