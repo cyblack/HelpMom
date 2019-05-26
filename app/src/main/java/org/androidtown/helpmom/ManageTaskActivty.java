@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.provider.ContactsContract;
@@ -38,18 +39,26 @@ import org.w3c.dom.Text;
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 public class ManageTaskActivty extends AppCompatActivity {
 
     ListView listView_addedTask;
     EditText editText_addTask;
     Button btn_addTask;
     Button btn_delete_tasks;
+    Button btn_confirm_tasks;
 
     // EditText의 String값 받을 용도.
     String editTextValue;
 
     // ListView에 전시할 데이터.
     ArrayList<Data_Format> datas;
+    String task;
     private static MyAdapter adapter;
 
     // 체크된 Task들은 이 arraylist에 저장될것임.
@@ -68,7 +77,7 @@ public class ManageTaskActivty extends AppCompatActivity {
         editText_addTask = (EditText) findViewById(R.id.editText_addTask);
         btn_addTask = (Button) findViewById(R.id.btn_addTask);
         btn_delete_tasks = (Button) findViewById(R.id.btn_delete_tasks);
-
+        btn_confirm_tasks=findViewById(R.id.confirm_tasks);
         // Data 리스트
         datas = new ArrayList<Data_Format>();
 
@@ -82,6 +91,13 @@ public class ManageTaskActivty extends AppCompatActivity {
         // 리스트뷰에 데이터 연결 완료.
         listView_addedTask.setAdapter(adapter);
 
+        btn_confirm_tasks.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Confirm();
+                finish();
+            }
+        });
         listView_addedTask.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
@@ -342,5 +358,40 @@ public class ManageTaskActivty extends AppCompatActivity {
             }
         });
     }
+    public void Confirm(){
+        Intent intent=getIntent();
+        String title=intent.getStringExtra("name");
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://ec2-54-180-79-126.ap-northeast-2.compute.amazonaws.com:3000/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
 
+        ApiService service = retrofit.create(ApiService.class);
+        for(int i=0;i<list_decided_tasks.size();i++)
+        {
+            task=list_decided_tasks.get(i).getTask_detail();
+            Call<RegisterResult> call = service.createTask(title,task);
+
+            call.enqueue(new Callback<RegisterResult>() {
+                @Override
+                public void onResponse(Call<RegisterResult> call, Response<RegisterResult> response) {
+                    if(!response.isSuccessful()){
+                        Toast.makeText(getApplicationContext(), "code " + response.code(), Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    RegisterResult r = response.body();
+
+                    Toast.makeText(getApplicationContext(), "result :  " + r.getTask(), Toast.LENGTH_SHORT).show();
+                }
+                @Override
+                public void onFailure(Call<RegisterResult> call, Throwable t) {
+                    Toast.makeText(getApplicationContext(), "실패: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+
+
+
+
+    }
 }

@@ -41,7 +41,11 @@ public interface ApiService {
     @POST("memberList")
     Call<RegisterResult> getMember(@Field("name") String name);
 
-//    @FormUrlEncoded
-//    @POST("createTask")
-//    Call<RegisterResult> getTask(@Field("title")String title);
+    @FormUrlEncoded
+    @POST("getTask")
+    Call<RegisterResult> getTask(@Field("title")String title);
+
+    @FormUrlEncoded
+    @POST("createTask")
+    Call<RegisterResult> createTask(@Field("title") String title, @Field("task") String task);
 }
