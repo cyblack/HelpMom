@@ -22,6 +22,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -107,7 +108,6 @@ public class ManageTaskActivty extends AppCompatActivity {
                     Log.d("itemClicked:", "cur state:" + data_format_object.toString());
                     itemCheckBox.setChecked(true);
                     data_format_object.setCheckedState(true);
-
                 }
             }
         });
@@ -154,12 +154,10 @@ public class ManageTaskActivty extends AppCompatActivity {
                 alertDialog.setButton(Dialog.BUTTON_POSITIVE, "예", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int which) {
-                        View view_empty = null;
-                        LinearLayout ll = new LinearLayout(getApplicationContext());
+
                         int size = datas.size();
                         for (int i = 0; i < size; i++) {
                             // unselect the checkedboxes.
-                            adapter.getView(i, view_empty, ll).findViewById(R.id.checkBox_listView_row_item).setSelected(false);
                             Data_Format data_format = datas.get(i);
 
                             if (data_format.isChecked()) {
@@ -221,67 +219,113 @@ public class ManageTaskActivty extends AppCompatActivity {
     }
 
 
-    public class MyAdapter extends ArrayAdapter<Data_Format> {
+    public class MyAdapter extends BaseAdapter {
 
-        private ArrayList<Data_Format> dataSet;
-        Context mContext;
-
-        private class ViewHolder {
-
-            //            TextView task_title;
-            TextView task_detail;
-            //            boolean isChecked;
-            CheckBox checkBox;
-        }
-
+        private ArrayList<Data_Format> dataSet = null;
+        private Context mContext = null;
 
         public MyAdapter(ArrayList<Data_Format> data, Context context) {
-            super(context, R.layout.row_item, data);
-
             this.dataSet = data;
             this.mContext = context;
+        }
+
+        @Override
+        public int getCount() {
+            int ret = 0;
+            if (dataSet != null) {
+                ret = dataSet.size();
+            }
+            return ret;
+        }
+
+        @Override
+        public Object getItem(int itemIndex) {
+            Object ret = null;
+            if (dataSet != null) {
+                ret = dataSet.get(itemIndex);
+            }
+            return ret;
+        }
+
+        @Override
+        public long getItemId(int itemIndex) {
+            return itemIndex;
         }
 
         private int lastPosition = -1;
 
         @NonNull
         @Override
-        public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-            Data_Format dataFormat = getItem(position);
-            ViewHolder viewHolder; //view lookup cache stored in tag
+        public View getView(int itemPosition, @Nullable View convertView, @NonNull ViewGroup parent) {
 
-            final View result;
+            mViewHolder viewHolder = null;
 
-            if (convertView == null) {
-                viewHolder = new ViewHolder();
-                LayoutInflater inflater = LayoutInflater.from(getContext());
-                // listView 하나의 row 에서 data가 display될 layout을 팽창시켜준다.
-                convertView = inflater.inflate(R.layout.row_item, parent, false);
 
-                viewHolder.task_detail = (TextView) convertView.findViewById(R.id.textView_rowItem_detail);
-                viewHolder.checkBox = (CheckBox) convertView.findViewById(R.id.checkBox_listView_row_item);
-                viewHolder.checkBox.setChecked(false);
-
-                result = convertView;
-                convertView.setTag(viewHolder);
+            if (convertView != null) {
+                viewHolder = (mViewHolder) convertView.getTag();
             } else {
-                viewHolder = (ViewHolder) convertView.getTag();
-                result = convertView;
+//                // 수정됨(from 안에)
+//                LayoutInflater inflater = LayoutInflater.from(getApplicationContext());
+//                // row_item.xml 팽창.
+//                convertView = inflater.inflate(R.layout.row_item, parent, false);
+                convertView = View.inflate(mContext, R.layout.row_item, null);
+
+                TextView item_task_detail = (TextView) convertView.findViewById(R.id.textView_rowItem_detail);
+                CheckBox itemCheckBox = (CheckBox) convertView.findViewById(R.id.checkBox_listView_row_item);
+
+                viewHolder = new mViewHolder(convertView);
+                viewHolder.setItemCheckBox(itemCheckBox);
+                viewHolder.setItemTextView(item_task_detail);
+
+                convertView.setTag(viewHolder);
             }
+
+            Data_Format data_format = dataSet.get(itemPosition);
+            viewHolder.getItemCheckBox().setChecked(data_format.isChecked());
+            viewHolder.getItemTextView().setText(data_format.getTask_detail());
 
 
             int lastPosition = -1;
 
-            Animation animation = AnimationUtils.loadAnimation(mContext, (position > lastPosition) ? R.anim.up_from_bottom : R.anim.down_from_top);
-            result.startAnimation(animation);
-            lastPosition = position;
+            // 수정: result->convertView.
+            Animation animation = AnimationUtils.loadAnimation(mContext, (itemPosition > lastPosition) ? R.anim.up_from_bottom : R.anim.down_from_top);
+            convertView.startAnimation(animation);
+            lastPosition = itemPosition;
 
-            viewHolder.task_detail.setText(dataFormat.getTask_detail());
 
             // return the completed view to render on screen
             return convertView;
         }
     }
+
+    public class mViewHolder extends RecyclerView.ViewHolder {
+        private TextView itemTextView;
+        private CheckBox itemCheckBox;
+
+        public mViewHolder(View itemView) {
+            super(itemView);
+        }
+
+        public CheckBox getItemCheckBox() {
+            return itemCheckBox;
+        }
+
+        public void setItemCheckBox(CheckBox itemCheckBox) {
+            this.itemCheckBox = itemCheckBox;
+        }
+
+        public TextView getItemTextView() {
+            return itemTextView;
+        }
+
+        public void setItemTextView(TextView itemTextView) {
+            this.itemTextView = itemTextView;
+        }
+
+
+    }
+
+
 
     @Override
     public void onBackPressed() {
