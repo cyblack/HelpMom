@@ -55,7 +55,6 @@ public class RoomCreateActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<RegisterResult> call, Response<RegisterResult> response) {
 
-
                         if(!response.isSuccessful()){
                             Toast.makeText(getApplicationContext(), "code " + response.code(), Toast.LENGTH_SHORT).show();
                             return;
