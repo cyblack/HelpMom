@@ -47,5 +47,5 @@ public interface ApiService {
 
     @FormUrlEncoded
     @POST("createTask")
-    Call<RegisterResult> createTask(@Field("title") String title, @Field("task") String task);
+    Call<RegisterResult> createTask(@Field("title") String title, @Field("task") String... task);
 }

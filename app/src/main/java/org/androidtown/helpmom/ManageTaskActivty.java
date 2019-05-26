@@ -1,43 +1,32 @@
 package org.androidtown.helpmom;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.provider.ContactsContract;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.AbsListView;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.support.v7.app.AlertDialog;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -58,11 +47,11 @@ public class ManageTaskActivty extends AppCompatActivity {
 
     // ListView에 전시할 데이터.
     ArrayList<Data_Format> datas;
-    String task;
+    String[] task;
     private static MyAdapter adapter;
 
     // 체크된 Task들은 이 arraylist에 저장될것임.
-    ArrayList<Data_Format> list_decided_tasks;
+    ArrayList<String> list_decided_tasks;
 
     // ListView의 onItemClickListener 에 쓰임.
     int default_backgroundColor = Color.parseColor("#fcfdff"); //기존 배경색
@@ -73,16 +62,16 @@ public class ManageTaskActivty extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manage_task);
 
-        listView_addedTask = (ListView) findViewById(R.id.listView_taskStored);
-        editText_addTask = (EditText) findViewById(R.id.editText_addTask);
-        btn_addTask = (Button) findViewById(R.id.btn_addTask);
-        btn_delete_tasks = (Button) findViewById(R.id.btn_delete_tasks);
+        listView_addedTask =  findViewById(R.id.listView_taskStored);
+        editText_addTask =  findViewById(R.id.editText_addTask);
+        btn_addTask = findViewById(R.id.btn_addTask);
+        btn_delete_tasks =  findViewById(R.id.btn_delete_tasks);
         btn_confirm_tasks=findViewById(R.id.confirm_tasks);
         // Data 리스트
-        datas = new ArrayList<Data_Format>();
+        datas = new ArrayList<>();
 
         // 선택된 task들을 담을 arrayList. 넘겨줄 것임.
-        list_decided_tasks = new ArrayList<Data_Format>();
+        list_decided_tasks = new ArrayList<>();
 
         // Adapter 정의
         adapter = new MyAdapter(datas, getApplicationContext());
@@ -95,7 +84,6 @@ public class ManageTaskActivty extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Confirm();
-                finish();
             }
         });
         listView_addedTask.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -109,9 +97,9 @@ public class ManageTaskActivty extends AppCompatActivity {
                 Data_Format data_format_object = (Data_Format) itemObject;
 
                 // get the checkBox and others of a row.
-                CheckBox itemCheckBox = (CheckBox) view.findViewById(R.id.checkBox_listView_row_item);
-                TextView txt_view = (TextView) view.findViewById(R.id.textView_rowItem_detail);
-                ImageView imgView = (ImageView) view.findViewById(R.id.imgView_rowItem_icon);
+                CheckBox itemCheckBox =  view.findViewById(R.id.checkBox_listView_row_item);
+                TextView txt_view =  view.findViewById(R.id.textView_rowItem_detail);
+                ImageView imgView =  view.findViewById(R.id.imgView_rowItem_icon);
 
                 // Reverse the state of the checkBox, change backgroundColor.
                 if (data_format_object.isChecked() == true) {
@@ -367,9 +355,15 @@ public class ManageTaskActivty extends AppCompatActivity {
                 .build();
 
         ApiService service = retrofit.create(ApiService.class);
-        for(int i=0;i<list_decided_tasks.size();i++)
-        {
-            task=list_decided_tasks.get(i).getTask_detail();
+
+        int size = datas.size();
+        for (int i = 0; i < size; i++) {
+            // unselect the checkedboxes.
+            if (datas.get(i).isChecked()) {
+                list_decided_tasks.add(datas.get(i).getTask_detail());
+            }
+        }
+            task=list_decided_tasks.toArray(new String[0]);
             Call<RegisterResult> call = service.createTask(title,task);
 
             call.enqueue(new Callback<RegisterResult>() {
@@ -382,13 +376,14 @@ public class ManageTaskActivty extends AppCompatActivity {
                     RegisterResult r = response.body();
 
                     Toast.makeText(getApplicationContext(), "result :  " + r.getTask(), Toast.LENGTH_SHORT).show();
+                    finish();
                 }
+
                 @Override
                 public void onFailure(Call<RegisterResult> call, Throwable t) {
                     Toast.makeText(getApplicationContext(), "실패: " + t.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             });
-        }
 
 
 

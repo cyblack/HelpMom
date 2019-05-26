@@ -49,8 +49,9 @@ public class GroupActivity extends AppCompatActivity {
         onRequestMemberList();
         onRequestTaskList();
 
-        arrayAdapter = new ArrayAdapter<String>(GroupActivity.this, android.R.layout.simple_list_item_1, joinedMemberList);
-        arrayAdapter2= new ArrayAdapter<String>(GroupActivity.this, android.R.layout.simple_list_item_1, confirmedTaskList);
+        arrayAdapter = new ArrayAdapter<>(GroupActivity.this, android.R.layout.simple_list_item_1, joinedMemberList);
+        arrayAdapter2= new ArrayAdapter<>(GroupActivity.this, android.R.layout.simple_list_item_1, confirmedTaskList);
+
         memberList.setAdapter(arrayAdapter);
         taskList.setAdapter(arrayAdapter2);
 
@@ -60,7 +61,7 @@ public class GroupActivity extends AppCompatActivity {
                 //TODO: 할일 목록 창 띄우기
                 Intent taskIntent=new Intent(GroupActivity.this,ManageTaskActivty.class);
                 taskIntent.putExtra("name", roomName);
-                startActivityForResult(taskIntent, 2);
+                startActivity(taskIntent);
             }
         });
         arrayAdapter.notifyDataSetChanged();
@@ -92,9 +93,6 @@ public class GroupActivity extends AppCompatActivity {
                 for(int i=0;i<memberList.length;i++){
                     joinedMemberList.add(memberList[i]);
                 }
-
-                arrayAdapter.notifyDataSetChanged();
-                Log.d("ddd",joinedMemberList.get(0));
             }
             @Override
             public void onFailure(Call<RegisterResult> call, Throwable t) {
@@ -135,7 +133,6 @@ public class GroupActivity extends AppCompatActivity {
                     confirmedTaskList.add(taskList[i]);
                 }
 
-                arrayAdapter2.notifyDataSetChanged();
                 Log.d("ddd",confirmedTaskList.get(0));
             }
             @Override
@@ -145,4 +142,5 @@ public class GroupActivity extends AppCompatActivity {
             }
         });
     }
+
 }
