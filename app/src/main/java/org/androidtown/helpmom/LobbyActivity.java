@@ -15,6 +15,7 @@ import android.widget.Toast;
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import retrofit2.Call;
@@ -27,6 +28,7 @@ public class LobbyActivity extends AppCompatActivity {
     Button btn_createRoom, btn_joinRoom, btn_logOut;
     TextView id,nickname;
     String _id;
+
     //List<String> joinedRoomList;
     //ArrayAdapter<String> arrayAdapter;
 
@@ -60,13 +62,12 @@ public class LobbyActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         _id = intent.getStringExtra("id");
-        String[] roomList = intent.getStringArrayExtra("roomList");
-
+        final String[] roomList = intent.getStringArrayExtra("roomList");
+        final HashMap<String,String> hashMap=(HashMap<String,String>)intent.getSerializableExtra("hashMap");
 
         for(int i=0;i<roomList.length;i++){
             Room r = new Room(roomList[i]);
             joinedRoomList.add(r);
-            Log.d("request",roomList[i]);
         }
         id.setText(_id);
         nickname.setText(intent.getStringExtra("name"));
@@ -76,9 +77,6 @@ public class LobbyActivity extends AppCompatActivity {
         //arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, joinedRoomList);
         //listView_joinedRoom.setAdapter(arrayAdapter);
 
-
-
-
         //onRequestRoomList();
 
         Log.d("request","onCreate");
@@ -87,8 +85,9 @@ public class LobbyActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent groupIntent=new Intent(LobbyActivity.this,GroupActivity.class);
-                groupIntent.putExtra("name", joinedRoomList.get(position).getRoomName());
-                groupIntent.putExtra("id", _id);
+                String rName = joinedRoomList.get(position).getRoomName();
+                groupIntent.putExtra("name", rName);
+                groupIntent.putExtra("roomNumber", hashMap.get(rName));
                 startActivity(groupIntent);
             }
         });

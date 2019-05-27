@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import retrofit2.Call;
@@ -175,7 +176,8 @@ public class LoginActivity extends AppCompatActivity {
 
                 RegisterResult r = response.body();
                 String[] roomList = r.getRoomName();
-                onLoginSuccess(ID,NAME,roomList);
+                String[] roomNumber= r.getRoomNumber();
+                onLoginSuccess(ID,NAME,roomList,roomNumber);
 
             }
             @Override
@@ -187,12 +189,18 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
-    public void onLoginSuccess(String id,String name,String [] roomList) {
+    public void onLoginSuccess(String id,String name,String [] roomList,String[] roomNumber) {
         login.setEnabled(true);
         Intent loginIntent = new Intent(LoginActivity.this, LobbyActivity.class);
         loginIntent.putExtra("id",id);
         loginIntent.putExtra("name",name);
+        HashMap<String,String> m_hashTable=new HashMap<String,String>();
+        for(int i=0; i<roomList.length;i++)
+        {
+            m_hashTable.put(roomList[i],roomNumber[i]);
+        }
         loginIntent.putExtra("roomList",roomList);
+        loginIntent.putExtra("hashMap", m_hashTable);
         startActivity(loginIntent);
         finish();
     }
