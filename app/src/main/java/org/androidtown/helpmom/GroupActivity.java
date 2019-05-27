@@ -34,6 +34,7 @@ public class GroupActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_group);
+
         memberList=findViewById(R.id.memberList);
         taskList=findViewById(R.id.taskList);
         taskListButton=findViewById(R.id.taskListBtn);
@@ -58,12 +59,12 @@ public class GroupActivity extends AppCompatActivity {
         taskListButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO: 할일 목록 창 띄우기
                 Intent taskIntent=new Intent(GroupActivity.this,ManageTaskActivty.class);
                 taskIntent.putExtra("name", roomName);
                 startActivity(taskIntent);
             }
         });
+
         arrayAdapter.notifyDataSetChanged();
         arrayAdapter2.notifyDataSetChanged();
     }
@@ -128,7 +129,9 @@ public class GroupActivity extends AppCompatActivity {
                 {
                     return;
                 }
+
                 Toast.makeText(getApplicationContext(), taskList[0]+taskList.length, Toast.LENGTH_LONG).show();
+
                 for(int i=0;i<taskList.length;i++){
                     confirmedTaskList.add(taskList[i]);
                 }
@@ -142,5 +145,4 @@ public class GroupActivity extends AppCompatActivity {
             }
         });
     }
-
 }

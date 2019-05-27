@@ -187,7 +187,6 @@ public class ManageTaskActivty extends AppCompatActivity {
         });
     }
 
-
     // 각 listView의 row에 display할 내용의 포맷.
     public class Data_Format {
 
@@ -221,7 +220,6 @@ public class ManageTaskActivty extends AppCompatActivity {
             isChecked = bool;
         }
     }
-
 
     public class MyAdapter extends BaseAdapter {
 
@@ -264,7 +262,6 @@ public class ManageTaskActivty extends AppCompatActivity {
 
             mViewHolder viewHolder = null;
 
-
             if (convertView != null) {
                 viewHolder = (mViewHolder) convertView.getTag();
             } else {
@@ -288,14 +285,12 @@ public class ManageTaskActivty extends AppCompatActivity {
             viewHolder.getItemCheckBox().setChecked(data_format.isChecked());
             viewHolder.getItemTextView().setText(data_format.getTask_detail());
 
-
             int lastPosition = -1;
 
             // 수정: result->convertView.
             Animation animation = AnimationUtils.loadAnimation(mContext, (itemPosition > lastPosition) ? R.anim.up_from_bottom : R.anim.down_from_top);
             convertView.startAnimation(animation);
             lastPosition = itemPosition;
-
 
             // return the completed view to render on screen
             return convertView;
@@ -384,9 +379,5 @@ public class ManageTaskActivty extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "실패: " + t.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             });
-
-
-
-
     }
 }
