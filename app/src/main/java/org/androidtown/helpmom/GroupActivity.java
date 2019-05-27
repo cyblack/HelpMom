@@ -100,6 +100,8 @@ public class GroupActivity extends AppCompatActivity {
                 for(int i=0;i<memberList.length;i++){
                     joinedMemberList.add(memberList[i]);
                 }
+                check1();
+
             }
             @Override
             public void onFailure(Call<RegisterResult> call, Throwable t) {
@@ -142,7 +144,7 @@ public class GroupActivity extends AppCompatActivity {
                     confirmedTaskList.add(taskList[i]);
                     Log.d("ddd",taskList[i]+taskList.length);
                 }
-                check();
+                check2();
             }
             @Override
             public void onFailure(Call<RegisterResult> call, Throwable t) {
@@ -153,8 +155,12 @@ public class GroupActivity extends AppCompatActivity {
 
     }
 
-    private void check(){
+    private void check1(){
         arrayAdapter.notifyDataSetChanged();
+    }
+
+    private void check2(){
+
         arrayAdapter2.notifyDataSetChanged();
     }
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

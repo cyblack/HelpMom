@@ -30,6 +30,5 @@ public class RegisterResult {
     }
 
     public String getJoinRoom() {return joinRoom;}
-
     public String[] getMember(){return member;}
 }

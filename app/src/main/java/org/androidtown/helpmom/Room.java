@@ -9,13 +9,12 @@ public class Room {
         this.roomName = roomName;
     }
 
-
     public void setRoomName(String roomName) {
         this.roomName = roomName;
     }
-
     public String getRoomName() {
         return roomName;
     }
+
 }
 
