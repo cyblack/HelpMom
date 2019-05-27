@@ -26,12 +26,15 @@ public class GroupActivity extends AppCompatActivity {
     Button taskListButton;
     String _id,roomName;
     List<String>  joinedMemberList;
+    List<String>  confirmedTaskList;
     ArrayAdapter<String> arrayAdapter;
+    ArrayAdapter<String> arrayAdapter2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_group);
+
         memberList=findViewById(R.id.memberList);
         taskList=findViewById(R.id.taskList);
         taskListButton=findViewById(R.id.taskListBtn);
@@ -42,19 +45,28 @@ public class GroupActivity extends AppCompatActivity {
         _id=intent.getStringExtra("id");
 
         joinedMemberList=new ArrayList<>();
-        onRequestMemberList();
+        confirmedTaskList=new ArrayList<>();
 
-        arrayAdapter = new ArrayAdapter<String>(GroupActivity.this, android.R.layout.simple_list_item_1, joinedMemberList);
+        onRequestMemberList();
+        onRequestTaskList();
+
+        arrayAdapter = new ArrayAdapter<>(GroupActivity.this, android.R.layout.simple_list_item_1, joinedMemberList);
+        arrayAdapter2= new ArrayAdapter<>(GroupActivity.this, android.R.layout.simple_list_item_1, confirmedTaskList);
+
         memberList.setAdapter(arrayAdapter);
+        taskList.setAdapter(arrayAdapter2);
 
         taskListButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO: 할일 목록 창 띄우기
                 Intent taskIntent=new Intent(GroupActivity.this,ManageTaskActivty.class);
-                startActivityForResult(taskIntent, 2);
+                taskIntent.putExtra("name", roomName);
+                startActivity(taskIntent);
             }
         });
+
+        arrayAdapter.notifyDataSetChanged();
+        arrayAdapter2.notifyDataSetChanged();
     }
 
     private void onRequestMemberList(){
@@ -82,9 +94,49 @@ public class GroupActivity extends AppCompatActivity {
                 for(int i=0;i<memberList.length;i++){
                     joinedMemberList.add(memberList[i]);
                 }
+            }
+            @Override
+            public void onFailure(Call<RegisterResult> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "실패: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                // onLoginFailed();
+            }
+        });
+    }
 
-                arrayAdapter.notifyDataSetChanged();
-                Log.d("ddd",joinedMemberList.get(0));
+    private void onRequestTaskList(){
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://ec2-54-180-79-126.ap-northeast-2.compute.amazonaws.com:3000/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        ApiService service = retrofit.create(ApiService.class);
+        Call<RegisterResult> call = service.getTask(roomName);
+
+        call.enqueue(new Callback<RegisterResult>() {
+            @Override
+            public void onResponse(Call<RegisterResult> call, Response<RegisterResult> response) {
+
+                if(!response.isSuccessful()){
+                    Toast.makeText(getApplicationContext(), "code " + response.code(), Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                RegisterResult r = response.body();
+
+                String[] taskList=r.getTask();
+
+                if(taskList.length==0)
+                {
+                    return;
+                }
+
+                Toast.makeText(getApplicationContext(), taskList[0]+taskList.length, Toast.LENGTH_LONG).show();
+
+                for(int i=0;i<taskList.length;i++){
+                    confirmedTaskList.add(taskList[i]);
+                }
+
+                Log.d("ddd",confirmedTaskList.get(0));
             }
             @Override
             public void onFailure(Call<RegisterResult> call, Throwable t) {
