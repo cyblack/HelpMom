@@ -14,6 +14,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -123,7 +126,8 @@ public class LoginActivity extends AppCompatActivity {
 
                     Toast.makeText(getApplicationContext(), "result2 :  " + r.getRes(), Toast.LENGTH_SHORT).show();
 
-                    onLoginSuccess(r.getId(),r.getName());
+                    //onLoginSuccess(r.getId(),r.getName());
+                    onRequestRoomList(r.getId(),r.getName());
                 }
             }
             @Override
@@ -150,11 +154,45 @@ public class LoginActivity extends AppCompatActivity {
         moveTaskToBack(true);
     }*/
 
-    public void onLoginSuccess(String id,String name) {
+    public void onRequestRoomList(final String ID, final String NAME){
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://ec2-54-180-79-126.ap-northeast-2.compute.amazonaws.com:3000/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        ApiService service = retrofit.create(ApiService.class);
+        Call<RegisterResult> call = service.getListRoom(ID);
+
+        call.enqueue(new Callback<RegisterResult>() {
+            @Override
+            public void onResponse(Call<RegisterResult> call, Response<RegisterResult> response) {
+
+                if(!response.isSuccessful()){
+                    Toast.makeText(getApplicationContext(), "code " + response.code(), Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                RegisterResult r = response.body();
+                String[] roomList = r.getRoomName();
+                onLoginSuccess(ID,NAME,roomList);
+
+            }
+            @Override
+            public void onFailure(Call<RegisterResult> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "실패: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                // onLoginFailed();
+            }
+        });
+    }
+
+
+    public void onLoginSuccess(String id,String name,String [] roomList) {
         login.setEnabled(true);
         Intent loginIntent = new Intent(LoginActivity.this, LobbyActivity.class);
         loginIntent.putExtra("id",id);
         loginIntent.putExtra("name",name);
+        loginIntent.putExtra("roomList",roomList);
         startActivity(loginIntent);
         finish();
     }
