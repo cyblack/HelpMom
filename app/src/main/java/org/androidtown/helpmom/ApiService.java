@@ -1,5 +1,7 @@
 package org.androidtown.helpmom;
 
+import java.util.ArrayList;
+
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -38,13 +40,13 @@ public interface ApiService {
 
     @FormUrlEncoded
     @POST("memberList")
-    Call<RegisterResult> getMember(@Field("name") String name);
+    Call<RegisterResult> getMember(@Field("roomNumber") String roomNumber);
 
     @FormUrlEncoded
     @POST("getTask")
-    Call<RegisterResult> getTask(@Field("title")String title);
+    Call<RegisterResult> getTask(@Field("roomNumber")String roomNumber);
 
     @FormUrlEncoded
     @POST("createTask")
-    Call<RegisterResult> createTask(@Field("title") String title, @Field("task") String... task);
+    Call<RegisterResult> createTask(@Field("roomNumber") String roomNumber, @Field("task") ArrayList<String> task);
 }

@@ -7,6 +7,9 @@ public class RegisterResult {
     private String joinRoom;
     private String[] member;
     private String[] task;
+    private String[] roomNumber;
+
+    public String[] getRoomNumber(){return roomNumber;}
 
     public String[] getTask(){return  task; }
 

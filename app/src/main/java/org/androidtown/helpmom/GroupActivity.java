@@ -29,6 +29,7 @@ public class GroupActivity extends AppCompatActivity {
     List<String>  confirmedTaskList;
     ArrayAdapter<String> arrayAdapter;
     ArrayAdapter<String> arrayAdapter2;
+    String roomNumber;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,17 +42,18 @@ public class GroupActivity extends AppCompatActivity {
 
         Intent intent=getIntent();
         roomName=intent.getStringExtra("name");
-        setTitle(roomName);
+        roomNumber = intent.getStringExtra("roomNumber");
+        setTitle(roomNumber);
         _id=intent.getStringExtra("id");
 
         joinedMemberList=new ArrayList<>();
         confirmedTaskList=new ArrayList<>();
+        arrayAdapter = new ArrayAdapter<>(GroupActivity.this, android.R.layout.simple_list_item_1, joinedMemberList);
+        arrayAdapter2= new ArrayAdapter<>(GroupActivity.this, android.R.layout.simple_list_item_1, confirmedTaskList);
 
         onRequestMemberList();
         onRequestTaskList();
 
-        arrayAdapter = new ArrayAdapter<>(GroupActivity.this, android.R.layout.simple_list_item_1, joinedMemberList);
-        arrayAdapter2= new ArrayAdapter<>(GroupActivity.this, android.R.layout.simple_list_item_1, confirmedTaskList);
 
         memberList.setAdapter(arrayAdapter);
         taskList.setAdapter(arrayAdapter2);
@@ -60,8 +62,8 @@ public class GroupActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent taskIntent=new Intent(GroupActivity.this,ManageTaskActivty.class);
-                taskIntent.putExtra("name", roomName);
-                startActivity(taskIntent);
+                taskIntent.putExtra("roomNumber", roomNumber);
+                startActivityForResult(taskIntent,2);
             }
         });
 
@@ -76,7 +78,7 @@ public class GroupActivity extends AppCompatActivity {
                 .build();
 
         ApiService service = retrofit.create(ApiService.class);
-        Call<RegisterResult> call = service.getMember(roomName);
+        Call<RegisterResult> call = service.getMember(roomNumber);
 
         call.enqueue(new Callback<RegisterResult>() {
             @Override
@@ -88,8 +90,12 @@ public class GroupActivity extends AppCompatActivity {
                 }
 
                 RegisterResult r = response.body();
-
                 String[] memberList=r.getMember();
+                if(memberList.length==0)
+                {
+                    return;
+                }
+
                 Toast.makeText(getApplicationContext(), memberList[0]+memberList.length, Toast.LENGTH_LONG).show();
                 for(int i=0;i<memberList.length;i++){
                     joinedMemberList.add(memberList[i]);
@@ -110,7 +116,7 @@ public class GroupActivity extends AppCompatActivity {
                 .build();
 
         ApiService service = retrofit.create(ApiService.class);
-        Call<RegisterResult> call = service.getTask(roomName);
+        Call<RegisterResult> call = service.getTask(roomNumber);
 
         call.enqueue(new Callback<RegisterResult>() {
             @Override
@@ -134,9 +140,9 @@ public class GroupActivity extends AppCompatActivity {
 
                 for(int i=0;i<taskList.length;i++){
                     confirmedTaskList.add(taskList[i]);
+                    Log.d("ddd",taskList[i]+taskList.length);
                 }
-
-                Log.d("ddd",confirmedTaskList.get(0));
+                check();
             }
             @Override
             public void onFailure(Call<RegisterResult> call, Throwable t) {
@@ -144,5 +150,25 @@ public class GroupActivity extends AppCompatActivity {
                 // onLoginFailed();
             }
         });
+
+    }
+
+    private void check(){
+        arrayAdapter.notifyDataSetChanged();
+        arrayAdapter2.notifyDataSetChanged();
+    }
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (requestCode == 2) {
+            if (resultCode == 1) {
+
+                // TODO: Implement successful signup logic here
+                ArrayList<String> task=(ArrayList<String>)data.getSerializableExtra("task");
+                for(int i=0; i<task.size();i++){
+                    confirmedTaskList.add(task.get(i));
+                }
+                arrayAdapter2.notifyDataSetChanged();
+            }
+        }
     }
 }

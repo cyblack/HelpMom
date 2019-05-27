@@ -47,7 +47,6 @@ public class ManageTaskActivty extends AppCompatActivity {
 
     // ListView에 전시할 데이터.
     ArrayList<Data_Format> datas;
-    String[] task;
     private static MyAdapter adapter;
 
     // 체크된 Task들은 이 arraylist에 저장될것임.
@@ -343,7 +342,7 @@ public class ManageTaskActivty extends AppCompatActivity {
     }
     public void Confirm(){
         Intent intent=getIntent();
-        String title=intent.getStringExtra("name");
+        final String roomNumber=intent.getStringExtra("roomNumber");
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://ec2-54-180-79-126.ap-northeast-2.compute.amazonaws.com:3000/")
                 .addConverterFactory(GsonConverterFactory.create())
@@ -358,8 +357,8 @@ public class ManageTaskActivty extends AppCompatActivity {
                 list_decided_tasks.add(datas.get(i).getTask_detail());
             }
         }
-            task=list_decided_tasks.toArray(new String[0]);
-            Call<RegisterResult> call = service.createTask(title,task);
+
+            Call<RegisterResult> call = service.createTask(roomNumber,list_decided_tasks);
 
             call.enqueue(new Callback<RegisterResult>() {
                 @Override
@@ -369,9 +368,8 @@ public class ManageTaskActivty extends AppCompatActivity {
                         return;
                     }
                     RegisterResult r = response.body();
-
+                    displayTask(roomNumber, list_decided_tasks);
                     Toast.makeText(getApplicationContext(), "result :  " + r.getTask(), Toast.LENGTH_SHORT).show();
-                    finish();
                 }
 
                 @Override
@@ -379,5 +377,13 @@ public class ManageTaskActivty extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "실패: " + t.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             });
+    }
+
+    private void displayTask(String roomNumber,ArrayList<String> task){
+        Intent intent=new Intent();
+        intent.putExtra("roomNumber", roomNumber);
+        intent.putStringArrayListExtra("task", task);
+        setResult(1,intent);
+        finish();
     }
 }
