@@ -5,10 +5,10 @@
     android:orientation="vertical"
     >
 
-    
+
     <TextView
-        android:id="@+id/roomName"
-        android:hint="roomName"
+        android:id="@+id/memberName"
+        android:hint="memberName"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

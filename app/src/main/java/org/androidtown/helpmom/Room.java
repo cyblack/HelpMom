@@ -4,9 +4,11 @@ public class Room {
 
 
     private String roomName;
+    private String roomMaker;
 
-    public Room(String roomName){
+    public Room(String roomName,String roomMaker){
         this.roomName = roomName;
+        this.roomMaker = roomMaker;
     }
 
     public void setRoomName(String roomName) {
@@ -15,6 +17,6 @@ public class Room {
     public String getRoomName() {
         return roomName;
     }
-
+    public String getRoomMaker() {return roomMaker;}
 }
 

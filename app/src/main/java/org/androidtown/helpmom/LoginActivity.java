@@ -65,7 +65,6 @@ public class LoginActivity extends AppCompatActivity {
 
     public void login() {
         Log.d(TAG, "Login");
-
         if (!validate()) {
             onLoginFailed();
             return;
@@ -177,8 +176,8 @@ public class LoginActivity extends AppCompatActivity {
                 RegisterResult r = response.body();
                 String[] roomList = r.getRoomName();
                 String[] roomNumber= r.getRoomNumber();
-                onLoginSuccess(ID,NAME,roomList,roomNumber);
-
+                String[] roomMaker = r.getRoomMaker();
+                onLoginSuccess(ID,NAME,roomList,roomNumber,roomMaker);
             }
             @Override
             public void onFailure(Call<RegisterResult> call, Throwable t) {
@@ -189,18 +188,22 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
-    public void onLoginSuccess(String id,String name,String [] roomList,String[] roomNumber) {
+    public void onLoginSuccess(String id,String name,String [] roomList,String[] roomNumber,String[] roomMaker) {
         login.setEnabled(true);
         Intent loginIntent = new Intent(LoginActivity.this, LobbyActivity.class);
-        loginIntent.putExtra("id",id);
-        loginIntent.putExtra("name",name);
+
         HashMap<String,String> m_hashTable=new HashMap<String,String>();
+        HashMap<String,String> hash_room_maker = new HashMap<String,String>();
         for(int i=0; i<roomList.length;i++)
         {
             m_hashTable.put(roomList[i],roomNumber[i]);
+            hash_room_maker.put(roomList[i],roomMaker[i]);
         }
+        loginIntent.putExtra("id",id);
+        loginIntent.putExtra("name",name);
         loginIntent.putExtra("roomList",roomList);
         loginIntent.putExtra("hashMap", m_hashTable);
+        loginIntent.putExtra("roomMaker",hash_room_maker);
         startActivity(loginIntent);
         finish();
     }

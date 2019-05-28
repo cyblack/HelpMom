@@ -25,9 +25,10 @@ public class GroupActivity extends AppCompatActivity {
     ListView memberList, taskList;
     Button taskListButton;
     String _id,roomName;
-    List<String>  joinedMemberList;
+    private List<Member>  joinedMemberList;
+    private MemberListAdapter memberAdapter;
     List<String>  confirmedTaskList;
-    ArrayAdapter<String> arrayAdapter;
+
     ArrayAdapter<String> arrayAdapter2;
     String roomNumber;
 
@@ -44,18 +45,20 @@ public class GroupActivity extends AppCompatActivity {
         roomName=intent.getStringExtra("name");
         roomNumber = intent.getStringExtra("roomNumber");
         setTitle(roomNumber);
-        _id=intent.getStringExtra("id");
+        _id=intent.getStringExtra("leader");
 
-        joinedMemberList=new ArrayList<>();
+        joinedMemberList=new ArrayList<Member>();
         confirmedTaskList=new ArrayList<>();
-        arrayAdapter = new ArrayAdapter<>(GroupActivity.this, android.R.layout.simple_list_item_1, joinedMemberList);
+
+        memberAdapter = new MemberListAdapter(getApplicationContext(),joinedMemberList,_id);
+        //arrayAdapter = new ArrayAdapter<>(GroupActivity.this, android.R.layout.simple_list_item_1, joinedMemberList);
         arrayAdapter2= new ArrayAdapter<>(GroupActivity.this, android.R.layout.simple_list_item_1, confirmedTaskList);
 
         onRequestMemberList();
         onRequestTaskList();
 
 
-        memberList.setAdapter(arrayAdapter);
+        memberList.setAdapter(memberAdapter);
         taskList.setAdapter(arrayAdapter2);
 
         taskListButton.setOnClickListener(new View.OnClickListener() {
@@ -67,7 +70,7 @@ public class GroupActivity extends AppCompatActivity {
             }
         });
 
-        arrayAdapter.notifyDataSetChanged();
+        memberAdapter.notifyDataSetChanged();
         arrayAdapter2.notifyDataSetChanged();
     }
 
@@ -98,7 +101,8 @@ public class GroupActivity extends AppCompatActivity {
 
                 Toast.makeText(getApplicationContext(), memberList[0]+memberList.length, Toast.LENGTH_LONG).show();
                 for(int i=0;i<memberList.length;i++){
-                    joinedMemberList.add(memberList[i]);
+                    Member m = new Member(memberList[i]);
+                    joinedMemberList.add(m);
                 }
                 check1();
 
@@ -156,7 +160,7 @@ public class GroupActivity extends AppCompatActivity {
     }
 
     private void check1(){
-        arrayAdapter.notifyDataSetChanged();
+        memberAdapter.notifyDataSetChanged();
     }
 
     private void check2(){
