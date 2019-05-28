@@ -8,4 +8,11 @@
     <color name="default_color">#ffffff</color>
     <color name="sky">#a7e3f2</color>
     <color name="white">#FFFFFF</color>
+    <color name="light_orange1">#efb47c</color>
+    <color name="light_orange">#fcfcf9</color>
+    <color name="little_dark_white">#f2f2f2</color>
+    <color name="black">#000000</color>
+    <color name="snow">#FFFDFD</color>
+    <color name="light_green">#e8ffd8</color>
+    <color name="kakaoTalk">#edf6f7</color>
 </resources>

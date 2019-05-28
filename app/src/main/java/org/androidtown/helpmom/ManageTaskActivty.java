@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -60,7 +61,19 @@ public class ManageTaskActivty extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manage_task);
+//        final TextView addTask = findViewById(R.id.editText_addTask);
+//        final float density = getResources().getDisplayMetrics().density;
+//        final Drawable drawable_addTask = getResources().getDrawable(R.drawable.input_icon);
+//        final int width = Math.round(24*density);
+//        final int height = Math.round(24*density);
+//        drawable_addTask.setBounds(0, 0, width, height);
+//        addTask.setCompoundDrawables(drawable_addTask, null, null, null);
 
+
+        listView_addedTask = (ListView) findViewById(R.id.listView_taskStored);
+        editText_addTask = (EditText) findViewById(R.id.editText_addTask);
+        btn_addTask = (Button) findViewById(R.id.btn_addTask);
+        btn_delete_tasks = (Button) findViewById(R.id.btn_delete_tasks);
         listView_addedTask =  findViewById(R.id.listView_taskStored);
         editText_addTask =  findViewById(R.id.editText_addTask);
         btn_addTask = findViewById(R.id.btn_addTask);
