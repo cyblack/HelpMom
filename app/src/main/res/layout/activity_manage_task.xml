@@ -2,11 +2,14 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="7dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    android:background="@color/kakaoTalk"
+    android:id="@+id/relative_root_view"
+    android:orientation="vertical"
 
     android:focusable="true"
     android:focusableInTouchMode="true"
-
     >
 
     <TextView
@@ -15,37 +18,22 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_alignParentTop="true"
-        android:text="저장 목록"
+        android:text="저장된 목록"
         android:textSize="22sp"
         android:gravity="center_horizontal"
         android:textStyle="bold" />
 
-    <!--    <TextView
-            android:layout_marginTop="10dp"
-            android:id="@+id/txtView_subTitle_manageTasks"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="History"
-            android:gravity="center_horizontal"
-            android:layout_below="@+id/txtView_title_manageTasks"
-            android:textSize="20sp"
-            android:layout_centerHorizontal="true"
-            />-->
-
-    <ListView
-        android:layout_below="@+id/txtView_title_manageTasks"
-        android:id="@+id/listView_taskStored"
-        android:layout_width="match_parent"
-        android:layout_height="330dp"
-        android:layout_marginTop="5dp"></ListView>
 
     <LinearLayout
-        android:layout_marginTop="5dp"
-        android:layout_below="@+id/listView_taskStored"
+        android:id="@+id/linearLayout_manageTask_buttons"
+        android:layout_below="@+id/txtView_title_manageTasks"
+
         android:layout_width="match_parent"
         android:layout_height="35dp">
 
         <Button
+            android:background="@drawable/button_custom"
+
             android:id="@+id/btn_delete_tasks"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -54,6 +42,8 @@
             android:textSize="12sp" />
 
         <Button
+            android:background="@drawable/button_custom"
+
             android:id="@+id/confirm_tasks"
             android:layout_weight="1"
             android:layout_width="match_parent"
@@ -63,36 +53,67 @@
             android:layout_alignParentRight="true"
             android:layout_gravity="right"
             android:layout_marginRight="10dp" />
-
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/linearLayout_manageTask"
+
+
+    <ListView
+        android:padding="7dp"
+
+        android:layout_below="@+id/linearLayout_manageTask_buttons"
+        android:id="@+id/listView_taskStored"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="430dp"
+        android:layout_marginTop="5dp"></ListView>
+
+
+    <View
+        android:layout_above="@+id/linearLayout_manageTask_editText_addBtn"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/black"></View>
+
+
+    <LinearLayout
+
+
+        android:id="@+id/linearLayout_manageTask_editText_addBtn"
+
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_alignParentLeft="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="6dp"
-        android:layout_marginRight="6dp"
-        android:orientation="horizontal">
+        android:layout_marginEnd="1dp"
+        android:layout_marginRight="1dp"
+        android:background="@drawable/layout_custom_border_black_background_kakao">
 
         <EditText
+            android:background="@drawable/edit_round"
+
+
             android:id="@+id/editText_addTask"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:hint="할 일을 입력하세요"
-            android:inputType="textMultiLine|textNoSuggestions" />
+            android:hint="추가할 일을 입력하세요"
+            android:inputType="textMultiLine"
+            android:paddingLeft="7dp"
+            android:textSize="17sp" />
+        <!--
+        android:drawablePadding="10dp"
+       android:drawableLeft="@drawable/custom_input_icon"
+       -->
 
         <Button
             android:id="@+id/btn_addTask"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_gravity="center"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_gravity="center_vertical"
             android:background="@drawable/add_icon" />
 
-
     </LinearLayout>
+
 
 </RelativeLayout>
