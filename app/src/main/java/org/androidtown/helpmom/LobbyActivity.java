@@ -29,6 +29,7 @@ public class LobbyActivity extends AppCompatActivity {
     private RoomListAdapter adapter;
     private List<Room> joinedRoomList;
 
+    private HashMap<String,String> hashMap,roomMaker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,8 +41,8 @@ public class LobbyActivity extends AppCompatActivity {
         Intent intent = getIntent();
         _id = intent.getStringExtra("id"); //내아이디
         final String[] roomList = intent.getStringArrayExtra("roomList");
-        final HashMap<String,String> hashMap=(HashMap<String,String>)intent.getSerializableExtra("hashMap");
-        final HashMap<String,String> roomMaker=(HashMap<String,String>)intent.getSerializableExtra("roomMaker");
+        hashMap=(HashMap<String,String>)intent.getSerializableExtra("hashMap");
+        roomMaker=(HashMap<String,String>)intent.getSerializableExtra("roomMaker");
 
 
         //onRequestRoomList();
@@ -68,12 +69,7 @@ public class LobbyActivity extends AppCompatActivity {
 
         // arrayAdaper로 String을 listView에 바인딩, data를 listView에 display함.
 
-        //arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, joinedRoomList);
-        //listView_joinedRoom.setAdapter(arrayAdapter);
-
         //onRequestRoomList();
-
-        Log.d("request","onCreate");
 
         listView_joinedRoom.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -83,6 +79,7 @@ public class LobbyActivity extends AppCompatActivity {
                 groupIntent.putExtra("name", rName);
                 groupIntent.putExtra("roomNumber", hashMap.get(rName));
                 groupIntent.putExtra("leader",roomMaker.get(rName));
+
                 startActivity(groupIntent);
             }
         });
@@ -99,7 +96,7 @@ public class LobbyActivity extends AppCompatActivity {
             @Override
             public void onClick(View v){
                 Intent joinRoom=new Intent(LobbyActivity.this,RoomJoinActivity.class);
-                joinRoom.putExtra("id", _id);
+                joinRoom.putExtra("id", _id);//내아이디 넘겨줌
                 startActivityForResult(joinRoom, 1);
             }
         });
@@ -110,22 +107,33 @@ public class LobbyActivity extends AppCompatActivity {
 
         if(requestCode==1){
             if(resultCode==1) {
-                Toast.makeText(getApplicationContext(), "lobbyResult " + resultCode, Toast.LENGTH_SHORT).show();
-                //joinedRoomList.add(data.getStringExtra("addRoomName"));
+                //Toast.makeText(getApplicationContext(), "lobbyResult " + resultCode, Toast.LENGTH_SHORT).show();
+
+                Room r = new Room(data.getStringExtra("roomName"),_id);
+                String rNum = data.getStringExtra("roomNumber");
+                hashMap.put(data.getStringExtra("roomName"),rNum);
+                roomMaker.put(data.getStringExtra("roomName"),_id);
+
+                joinedRoomList.add(r);
+                adapter.notifyDataSetChanged();
+
+                //room만드려면 이름과 방만든사람이 필요함.
+
+            }else if(resultCode==2){
+                Room r = new Room(data.getStringExtra("roomName"),data.getStringExtra("maker"));
+                String rNum = data.getStringExtra("roomNumber");
+                hashMap.put(data.getStringExtra("roomName"),rNum);
+                roomMaker.put(data.getStringExtra("roomName"),data.getStringExtra("maker"));
+
+               // Log.d("value" ,hashMap.get(data.getStringExtra("roomName")));
+                joinedRoomList.add(r);
+                adapter.notifyDataSetChanged();
+
+
             }
         }
     }
-    protected void onStart(){
-        super.onStart();
-        Log.d("request","onStart");
-    }
 
-    protected void onResume() {
-        super.onResume();
-      //  arrayAdapter.notifyDataSetChanged();
-    }
-
-    //menu
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.bar_menu, menu);

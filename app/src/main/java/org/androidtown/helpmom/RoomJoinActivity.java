@@ -68,8 +68,10 @@ public class RoomJoinActivity extends AppCompatActivity {
 
                         Intent intent = new Intent();
 
-                        intent.putExtra("addRoomName",r.getJoinRoom());
-                        setResult(1,intent);
+                        intent.putExtra("roomName",r.getJoinRoom());
+                        intent.putExtra("maker",r.getRoomMaker()[0]);
+                        intent.putExtra("roomNumber",r.getRoomNumber()[0]);
+                        setResult(2,intent);
                         finish();
                     }
 

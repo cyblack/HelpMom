@@ -46,8 +46,11 @@ public class GroupActivity extends AppCompatActivity {
         Intent intent=getIntent();
         roomName=intent.getStringExtra("name");
         roomNumber = intent.getStringExtra("roomNumber");
-        setTitle(roomNumber);
         _id=intent.getStringExtra("leader");
+        setTitle(roomNumber);
+
+        Log.d("leader",_id);
+        Log.d("roomNumber",roomNumber);
 
         joinedMemberList=new ArrayList<Member>();
         confirmedTaskList=new ArrayList<>();

@@ -64,7 +64,9 @@ public class RoomCreateActivity extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), "그룹 생성:  " + r.getRes(), Toast.LENGTH_SHORT).show();
                        // onLoginSuccess();
                         Intent intent = new Intent();
-                        intent.putExtra("addRoomName",createName.getText().toString());
+                        intent.putExtra("roomName",createName.getText().toString());
+
+                        intent.putExtra("roomNumber",r.getRoomNumber()[0]);
                         setResult(1,intent);
                         finish();
                     }
