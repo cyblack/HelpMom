@@ -7,7 +7,7 @@ public class RegisterResult {
     private String joinRoom;
     private String[] member;
     private String[] task;
-    private String[] roomNumber;
+    private String[] roomNumber,roomMaker;
 
     public String[] getRoomNumber(){return roomNumber;}
 
@@ -31,4 +31,5 @@ public class RegisterResult {
 
     public String getJoinRoom() {return joinRoom;}
     public String[] getMember(){return member;}
+    public String[] getRoomMaker(){return roomMaker;}
 }

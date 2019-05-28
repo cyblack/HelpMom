@@ -27,7 +27,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class LobbyActivity extends AppCompatActivity {
     Button btn_createRoom, btn_joinRoom, btn_logOut;
     TextView id,nickname;
-    String _id;
+    String _id,leader;
 
     //List<String> joinedRoomList;
     //ArrayAdapter<String> arrayAdapter;
@@ -44,6 +44,11 @@ public class LobbyActivity extends AppCompatActivity {
 
         // 참가된 방 리스트 data.
 
+        Intent intent = getIntent();
+        _id = intent.getStringExtra("id"); //내아이디
+        final String[] roomList = intent.getStringArrayExtra("roomList");
+        final HashMap<String,String> hashMap=(HashMap<String,String>)intent.getSerializableExtra("hashMap");
+        final HashMap<String,String> roomMaker=(HashMap<String,String>)intent.getSerializableExtra("roomMaker");
 
 
         //onRequestRoomList();
@@ -55,19 +60,16 @@ public class LobbyActivity extends AppCompatActivity {
         btn_logOut = findViewById(R.id.btn_logout_lobby);
         listView_joinedRoom = findViewById(R.id.listView_roomList);
         joinedRoomList = new ArrayList<Room>();
-        adapter = new RoomListAdapter(getApplicationContext(),joinedRoomList);
+        adapter = new RoomListAdapter(getApplicationContext(),joinedRoomList,_id);
         listView_joinedRoom.setAdapter(adapter);
         id = findViewById(R.id.txtView_lobby_userID);
         nickname = findViewById(R.id.txtView_lobby_userNickName);
 
-        Intent intent = getIntent();
-        _id = intent.getStringExtra("id");
-        final String[] roomList = intent.getStringArrayExtra("roomList");
-        final HashMap<String,String> hashMap=(HashMap<String,String>)intent.getSerializableExtra("hashMap");
 
         for(int i=0;i<roomList.length;i++){
-            Room r = new Room(roomList[i]);
+            Room r = new Room(roomList[i],roomMaker.get(roomList[i]));
             joinedRoomList.add(r);
+
         }
         id.setText(_id);
         nickname.setText(intent.getStringExtra("name"));
@@ -88,6 +90,7 @@ public class LobbyActivity extends AppCompatActivity {
                 String rName = joinedRoomList.get(position).getRoomName();
                 groupIntent.putExtra("name", rName);
                 groupIntent.putExtra("roomNumber", hashMap.get(rName));
+                groupIntent.putExtra("leader",roomMaker.get(rName));
                 startActivity(groupIntent);
             }
         });
@@ -125,7 +128,6 @@ public class LobbyActivity extends AppCompatActivity {
         if(requestCode==1){
             if(resultCode==1) {
                 Toast.makeText(getApplicationContext(), "lobbyResult " + resultCode, Toast.LENGTH_SHORT).show();
-
                 //joinedRoomList.add(data.getStringExtra("addRoomName"));
             }
         }
@@ -133,7 +135,6 @@ public class LobbyActivity extends AppCompatActivity {
     protected void onStart(){
         super.onStart();
         Log.d("request","onStart");
-
     }
 
     protected void onResume() {

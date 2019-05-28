@@ -1,6 +1,7 @@
 package org.androidtown.helpmom;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -14,11 +15,12 @@ public class RoomListAdapter extends BaseAdapter {
 
     private Context context;
     private List<Room> roomList;
+    private String me;
 
-    public RoomListAdapter(Context context, List<Room> roomList){
+    public RoomListAdapter(Context context, List<Room> roomList,String me){
         this.context = context;
         this.roomList = roomList;
-
+        this.me = me;
     }
 
 
@@ -44,6 +46,10 @@ public class RoomListAdapter extends BaseAdapter {
 
         TextView roomName = (TextView)v.findViewById(R.id.roomName);
 
+
+        if(roomList.get(i).getRoomMaker().equals(me)) {
+            roomName.setTextColor(Color.BLUE);
+        }
         roomName.setText(roomList.get(i).getRoomName());
 
         return v;
