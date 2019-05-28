@@ -72,14 +72,6 @@
         android:id="@+id/listView_roomList"
         android:layout_width="wrap_content"
         android:layout_height="300dp"
-        android:layout_above="@+id/btn_logout_lobby"
         android:layout_below="@+id/txtView_showRoomList"/>
-
-    <Button
-        android:id="@+id/btn_logout_lobby"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:text="로그아웃" />
 
 </RelativeLayout>

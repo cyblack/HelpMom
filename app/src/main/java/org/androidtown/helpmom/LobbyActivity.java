@@ -4,28 +4,21 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
-
 public class LobbyActivity extends AppCompatActivity {
-    Button btn_createRoom, btn_joinRoom, btn_logOut;
+    Button btn_createRoom, btn_joinRoom;
     TextView id,nickname;
     String _id,leader;
 
@@ -57,7 +50,6 @@ public class LobbyActivity extends AppCompatActivity {
         // get Views
         btn_createRoom = findViewById(R.id.btn_createRoom);
         btn_joinRoom = findViewById(R.id.btn_joinRoom);
-        btn_logOut = findViewById(R.id.btn_logout_lobby);
         listView_joinedRoom = findViewById(R.id.listView_roomList);
         joinedRoomList = new ArrayList<Room>();
         adapter = new RoomListAdapter(getApplicationContext(),joinedRoomList,_id);
@@ -111,15 +103,6 @@ public class LobbyActivity extends AppCompatActivity {
                 startActivityForResult(joinRoom, 1);
             }
         });
-
-        btn_logOut.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
-                Intent logoutIntent= new Intent(LobbyActivity.this,LoginActivity.class);
-                startActivity(logoutIntent);
-                finish();
-            }
-        });
     }
 
     @Override
@@ -140,5 +123,22 @@ public class LobbyActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
       //  arrayAdapter.notifyDataSetChanged();
+    }
+
+    //menu
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.bar_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item){
+        switch (item.getItemId()){
+            case R.id.logout:
+                startActivity(new Intent(LobbyActivity.this,LoginActivity.class));
+                Toast.makeText(getApplicationContext(), "로그아웃 되었습니다", Toast.LENGTH_LONG).show();
+                finish();
+        }
+        return true;
     }
 }
