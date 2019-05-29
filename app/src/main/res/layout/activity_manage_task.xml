@@ -39,6 +39,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="삭제"
+            android:layout_marginLeft="10dp"
             android:textSize="12sp" />
 
         <Button
@@ -71,28 +72,22 @@
         android:layout_above="@+id/linearLayout_manageTask_editText_addBtn"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/black"></View>
+        android:background="@color/black">
+    </View>
 
 
     <LinearLayout
-
-
         android:id="@+id/linearLayout_manageTask_editText_addBtn"
-
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="1dp"
-        android:layout_marginRight="1dp"
-        android:background="@drawable/layout_custom_border_black_background_kakao">
+        android:background="@color/default_color">
 
         <EditText
             android:background="@drawable/edit_round"
-
-
             android:id="@+id/editText_addTask"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
