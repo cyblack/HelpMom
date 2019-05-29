@@ -48,10 +48,14 @@
 
     <ListView
         android:layout_marginTop="10dp"
+        android:background="@drawable/custom_lobby_listview"
         android:id="@+id/listView_roomList"
+        android:divider="@color/default_color"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_below="@+id/txtView_showRoomList"
+        android:padding="7dp"
+        android:dividerHeight="4dp"
         />
 
 </RelativeLayout>

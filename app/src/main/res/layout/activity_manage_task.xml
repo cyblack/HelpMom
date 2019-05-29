@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
 
-    android:background="@color/kakaoTalk"
+    android:background="@color/default_color"
     android:id="@+id/relative_root_view"
     android:orientation="vertical"
     android:focusable="true"
@@ -49,11 +49,12 @@
         android:id="@+id/listView_taskStored"
         android:layout_width="match_parent"
         android:layout_height="430dp"
-        android:divider="@color/kakaoTalk"
+        android:divider="@color/default_color"
+        android:background="@drawable/layout_custom_border_black_background_kakao"
         android:dividerHeight="4dp"
-        android:layout_marginTop="5dp">
+        android:layout_margin="4dp"
+        android:layout_above="@id/linearLayout_manageTask_editText_addBtn">
     </ListView>
-
 
     <View
         android:layout_above="@+id/linearLayout_manageTask_editText_addBtn"
@@ -61,7 +62,6 @@
         android:layout_height="1dp"
         android:background="@color/black">
     </View>
-
 
     <LinearLayout
         android:id="@+id/linearLayout_manageTask_editText_addBtn"
@@ -96,6 +96,5 @@
             android:background="@drawable/add_icon" />
 
     </LinearLayout>
-
 
 </RelativeLayout>

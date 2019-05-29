@@ -14,5 +14,5 @@
     <color name="black">#000000</color>
     <color name="snow">#FFFDFD</color>
     <color name="light_green">#e8ffd8</color>
-    <color name="kakaoTalk">#edf6f7</color>
+    <!--<color name="kakaoTalk">#edf6f7</color>-->
 </resources>
