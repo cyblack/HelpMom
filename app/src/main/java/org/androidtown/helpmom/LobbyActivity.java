@@ -19,7 +19,7 @@ import java.util.List;
 
 public class LobbyActivity extends AppCompatActivity {
     Button btn_createRoom, btn_joinRoom;
-    TextView id,nickname;
+//    TextView id,nickname;
     String _id,leader;
 
     //List<String> joinedRoomList;
@@ -55,8 +55,8 @@ public class LobbyActivity extends AppCompatActivity {
         joinedRoomList = new ArrayList<Room>();
         adapter = new RoomListAdapter(getApplicationContext(),joinedRoomList,_id);
         listView_joinedRoom.setAdapter(adapter);
-        id = findViewById(R.id.txtView_lobby_userID);
-        nickname = findViewById(R.id.txtView_lobby_userNickName);
+//        id = findViewById(R.id.txtView_lobby_userID);
+//        nickname = findViewById(R.id.txtView_lobby_userNickName);
 
 
         for(int i=0;i<roomList.length;i++){
@@ -64,8 +64,8 @@ public class LobbyActivity extends AppCompatActivity {
             joinedRoomList.add(r);
 
         }
-        id.setText(_id);
-        nickname.setText(intent.getStringExtra("name"));
+//        id.setText(_id);
+//        nickname.setText(intent.getStringExtra("name"));
 
         // arrayAdaper로 String을 listView에 바인딩, data를 listView에 display함.
 

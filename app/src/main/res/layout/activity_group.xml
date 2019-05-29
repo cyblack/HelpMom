@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:layout_margin="10dp"
     >
 
         <TextView
@@ -12,28 +13,33 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="그룹원"
-            android:textSize="16dp"
+            android:textSize="20dp"
             />
 
         <ListView
             android:id="@+id/memberList"
+            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
-            android:layout_height="92dp"
+            android:layout_height="120dp"
             android:layout_below="@id/members"
             />
 
         <Button
+            android:background="@drawable/button_custom"
             android:id="@+id/taskListBtn"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="32dp"
             android:text="할 일"
             android:layout_below="@id/memberList"
+            android:layout_marginTop="10dp"
+            android:textSize="20dp"
             />
 
         <ListView
             android:id="@+id/taskList"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
             android:layout_below="@id/taskListBtn"
             >
         </ListView>

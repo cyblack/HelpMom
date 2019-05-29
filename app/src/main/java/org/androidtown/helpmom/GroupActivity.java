@@ -54,7 +54,7 @@ public class GroupActivity extends AppCompatActivity {
         Log.d("roomNumber",roomNumber);
 
         if(!myid.equals(leader)){//리더가 아니면 안보이게하기
-            taskListButton.setVisibility(View.GONE);
+            taskListButton.setVisibility(View.INVISIBLE);
         }
 
 
