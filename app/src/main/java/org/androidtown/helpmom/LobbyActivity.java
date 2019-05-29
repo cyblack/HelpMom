@@ -26,6 +26,7 @@ public class LobbyActivity extends AppCompatActivity {
     private RoomListAdapter roomAdapter;
 
     private ListView listView_joinedRoom;
+
     private List<Room> joinedRoomList;
 
     private HashMap<String,String> hashMap,roomMaker;
@@ -120,7 +121,6 @@ public class LobbyActivity extends AppCompatActivity {
                // Log.d("value" ,hashMap.get(data.getStringExtra("roomName")));
                 joinedRoomList.add(r);
                 roomAdapter.notifyDataSetChanged();
-
 
             }
         }

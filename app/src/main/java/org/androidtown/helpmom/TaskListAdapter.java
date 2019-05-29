@@ -45,10 +45,16 @@ public class TaskListAdapter extends BaseAdapter {
         TextView changed = (TextView)v.findViewById(R.id.changed);
         TextView point = (TextView)v.findViewById(R.id.point);
 
-        taskName.setText(taskList.get(i).getTaskName());
-        progress.setText(taskList.get(i).getProgress());
-        changed.setText(taskList.get(i).getChangedName());
-        point.setText(taskList.get(i).getPoint());
+        //taskName.setText(taskList.get(i).getTaskName());
+        //progress.setText(taskList.get(i).getProgress());
+        //changed.setText(taskList.get(i).getChangedName());
+        //point.setText(taskList.get(i).getPoint());
+
+
+        taskName.setText("청소기 (전체) ");
+        progress.setText("60% 진행");
+        changed.setText("장동주");
+        point.setText("50");
 
         return v;
     }
