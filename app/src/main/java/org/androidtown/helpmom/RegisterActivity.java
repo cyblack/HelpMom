@@ -79,7 +79,6 @@ public class RegisterActivity extends AppCompatActivity {
                         // On complete call either onRegisterSuccess or onRegisterFailed
                         // depending on success
                         onRegister();
-                        onRegisterSuccess();
                         // onRegisterFailed();
                         progressDialog.dismiss();
                     }
@@ -110,11 +109,24 @@ public class RegisterActivity extends AppCompatActivity {
                     return;
                 }
                 RegisterResult r = response.body();
-                Toast.makeText(getApplicationContext(), "result :  " + r.getRes(), Toast.LENGTH_SHORT).show();
+
+                if(r.getRes().equals("already")) { //아이디가 이미 있음
+                    Toast.makeText(getApplicationContext(), "아이디가 이미 있음", Toast.LENGTH_SHORT).show();
+                    onRegisterFailed();
+
+                }else if(r.getRes().equals("fail")){ //등록 실패
+
+                    Toast.makeText(getApplicationContext(), "로그인 실패", Toast.LENGTH_SHORT).show();
+                    onRegisterFailed();
+                }else{ //등록 성공
+
+                    Toast.makeText(getApplicationContext(), "등록 성공" , Toast.LENGTH_SHORT).show();
+                    onRegisterSuccess();
+                }
             }
             @Override
             public void onFailure(Call<RegisterResult> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), "실패: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "서버 통신 실패: " + t.getMessage(), Toast.LENGTH_SHORT).show();
                 onRegisterFailed();
             }
         });
@@ -125,13 +137,13 @@ public class RegisterActivity extends AppCompatActivity {
         registerBtn.setEnabled(true);
         setResult(RESULT_OK, null);
         Intent registerIntent = new Intent(RegisterActivity.this, LoginActivity.class);
-        Toast.makeText(getBaseContext(), "가입 성공", Toast.LENGTH_LONG).show();
+        //Toast.makeText(getBaseContext(), "가입 성공", Toast.LENGTH_LONG).show();
         startActivity(registerIntent);
         finish();
     }
 
     public void onRegisterFailed() {
-        Toast.makeText(getBaseContext(), "가입 실패", Toast.LENGTH_LONG).show();
+       // Toast.makeText(getBaseContext(), "가입 실패", Toast.LENGTH_LONG).show();
         registerBtn.setEnabled(true);
     }
 //
