@@ -11,6 +11,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".PerformTaskActivity"
+            android:theme="@style/Theme.AppCompat.Light.Dialog"
+            ></activity>
+        <activity
+            android:name=".TaskResultActivity"
+            android:theme="@style/Theme.AppCompat.Light.Dialog" />
+        <activity
+            android:name=".EvaluateActivity"
+            android:theme="@style/Theme.AppCompat.Light.Dialog" />
         <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,12 +33,10 @@
             android:theme="@style/Theme.AppCompat.Light.Dialog" />
         <activity android:name=".LobbyActivity" />
         <activity android:name=".RegisterActivity" />
-        <activity android:name=".LoginActivity">
-
-        </activity>
+        <activity android:name=".LoginActivity" />
         <activity
             android:name=".ManageTaskActivty"
-            android:windowSoftInputMode="adjustResize"></activity>
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".RoomJoinActivity"
             android:theme="@style/Theme.AppCompat.Light.Dialog" />

@@ -1,0 +1,10 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+
+
+    <item android:id="@+id/performTask"
+        android:title="진행하기"/>
+    <item android:id="@+id/evaluateTask"
+        android:title="평가하기"/>
+</menu>
+

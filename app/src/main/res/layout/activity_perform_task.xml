@@ -5,14 +5,13 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp">
-
-    <TextView
-        android:id="@+id/createTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="그룹 생성"
-        android:textSize="40dp"
-        />
+<TextView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:textSize="40dp"
+    android:layout_marginTop="20dp"
+    android:layout_marginBottom="20dp"
+    android:text="진행도 입력"/>
 
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
@@ -20,39 +19,25 @@
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp">
 
-        <EditText android:id="@+id/createName"
+        <EditText android:id="@+id/performProgress"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text"
-            android:hint="그룹 이름"
+            android:hint="진행도 (%)"
             android:singleLine="true"/>
         />
 
     </android.support.design.widget.TextInputLayout>
 
-    <!-- Password Label -->
-    <android.support.design.widget.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp">
-
-        <EditText android:id="@+id/createPW"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPassword"
-            android:hint="그룹 비밀번호"/>
-
-    </android.support.design.widget.TextInputLayout>
 
     <android.support.v7.widget.AppCompatButton
-        android:id="@+id/createBtn"
-        android:layout_width="match_parent"
+        android:id="@+id/performBtn"
         android:background="@drawable/button_custom"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:layout_marginBottom="24dp"
         android:padding="12dp"
-        android:text="생성"/>
+        android:text="확인"/>
 
 </LinearLayout>
