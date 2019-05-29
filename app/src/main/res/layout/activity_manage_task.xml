@@ -49,6 +49,8 @@
         android:id="@+id/listView_taskStored"
         android:layout_width="match_parent"
         android:layout_height="430dp"
+        android:divider="@color/kakaoTalk"
+        android:dividerHeight="4dp"
         android:layout_marginTop="5dp">
     </ListView>
 
