@@ -26,7 +26,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class GroupActivity extends AppCompatActivity {
     ListView memberList, taskList;
     Button taskListButton;
-    String _id,roomName;
+    String myid,roomName,leader;
     private List<Member>  joinedMemberList;
     private MemberListAdapter memberAdapter;
     List<String>  confirmedTaskList;
@@ -46,16 +46,22 @@ public class GroupActivity extends AppCompatActivity {
         Intent intent=getIntent();
         roomName=intent.getStringExtra("name");
         roomNumber = intent.getStringExtra("roomNumber");
-        _id=intent.getStringExtra("leader");
+        leader=intent.getStringExtra("leader");
+        myid = intent.getStringExtra("myId");
         setTitle(roomNumber);
 
-        Log.d("leader",_id);
+        Log.d("leader",leader);
         Log.d("roomNumber",roomNumber);
+
+        if(!myid.equals(leader)){//리더가 아니면 안보이게하기
+            taskListButton.setVisibility(View.GONE);
+        }
+
 
         joinedMemberList=new ArrayList<Member>();
         confirmedTaskList=new ArrayList<>();
 
-        memberAdapter = new MemberListAdapter(getApplicationContext(),joinedMemberList,_id);
+        memberAdapter = new MemberListAdapter(getApplicationContext(),joinedMemberList,leader);
         //arrayAdapter = new ArrayAdapter<>(GroupActivity.this, android.R.layout.simple_list_item_1, joinedMemberList);
         arrayAdapter2= new ArrayAdapter<>(GroupActivity.this, android.R.layout.simple_list_item_1, confirmedTaskList);
 

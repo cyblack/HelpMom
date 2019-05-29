@@ -79,7 +79,8 @@ public class LobbyActivity extends AppCompatActivity {
                 groupIntent.putExtra("name", rName);
                 groupIntent.putExtra("roomNumber", hashMap.get(rName));
                 groupIntent.putExtra("leader",roomMaker.get(rName));
-
+                groupIntent.putExtra("myId",_id);
+                //방이름과 방번호와 방장 넘겨줌
                 startActivity(groupIntent);
             }
         });
