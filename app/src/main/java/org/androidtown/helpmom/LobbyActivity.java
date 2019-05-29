@@ -27,7 +27,7 @@ public class LobbyActivity extends AppCompatActivity {
     private RoomListAdapter roomAdapter;
 
     private ListView listView_joinedRoom;
-    private RoomListAdapter adapter;
+    //private RoomListAdapter adapter;
     private List<Room> joinedRoomList;
 
     private HashMap<String,String> hashMap,roomMaker;
@@ -70,14 +70,11 @@ public class LobbyActivity extends AppCompatActivity {
         for(int i=0;i<roomList.length;i++){
             Room r = new Room(roomList[i],roomMaker.get(roomList[i]));
             joinedRoomList.add(r);
-
         }
 //        id.setText(_id);
 //        nickname.setText(intent.getStringExtra("name"));
 
         // arrayAdaper로 String을 listView에 바인딩, data를 listView에 display함.
-
-
 
         listView_joinedRoom.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -124,7 +121,7 @@ public class LobbyActivity extends AppCompatActivity {
                 roomMaker.put(data.getStringExtra("roomName"),_id);
 
                 joinedRoomList.add(r);
-                adapter.notifyDataSetChanged();
+                roomAdapter.notifyDataSetChanged();
 
                 //room만드려면 이름과 방만든사람이 필요함.
 
@@ -136,9 +133,7 @@ public class LobbyActivity extends AppCompatActivity {
 
                // Log.d("value" ,hashMap.get(data.getStringExtra("roomName")));
                 joinedRoomList.add(r);
-                adapter.notifyDataSetChanged();
-
-
+                roomAdapter.notifyDataSetChanged();
             }
         }
     }
