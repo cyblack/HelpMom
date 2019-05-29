@@ -6,7 +6,7 @@
         android:color="@color/black"></stroke>
 
 
-    <solid android:color="@color/kakaoTalk"></solid>
+    <solid android:color="@color/default_color"></solid>
 
     <corners android:radius="8dp"></corners>
 
