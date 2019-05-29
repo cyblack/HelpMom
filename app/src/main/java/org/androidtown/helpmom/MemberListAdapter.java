@@ -48,7 +48,6 @@ public class MemberListAdapter extends BaseAdapter {
             memberName.setTextColor(Color.BLUE);
         }
         memberName.setText(memberList.get(i).getMemberName());
-
         return v;
     }
 }

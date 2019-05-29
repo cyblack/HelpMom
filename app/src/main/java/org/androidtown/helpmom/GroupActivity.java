@@ -30,13 +30,15 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class GroupActivity extends AppCompatActivity {
     ListView memberList, taskList;
     Button taskListButton;
-    String myid, roomName, leader;
+    String myid, roomName, leader,roomNumber;
+
     private List<Member> joinedMemberList;
     private MemberListAdapter memberAdapter;
-    List<String> confirmedTaskList;
 
-    ArrayAdapter<String> arrayAdapter2;
-    String roomNumber;
+
+    private List<Task> confirmedTaskList;
+    private TaskListAdapter taskAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,17 +65,17 @@ public class GroupActivity extends AppCompatActivity {
         }
 
         joinedMemberList = new ArrayList<Member>();
-        confirmedTaskList = new ArrayList<>();
+        confirmedTaskList = new ArrayList<Task>();
 
         memberAdapter = new MemberListAdapter(getApplicationContext(), joinedMemberList, leader);
-        //arrayAdapter = new ArrayAdapter<>(GroupActivity.this, android.R.layout.simple_list_item_1, joinedMemberList);
-        arrayAdapter2 = new ArrayAdapter<>(GroupActivity.this, android.R.layout.simple_list_item_1, confirmedTaskList);
+        taskAdapter = new TaskListAdapter(getApplication(),confirmedTaskList);
+
 
         onRequestMemberList();
         onRequestTaskList();
 
         memberList.setAdapter(memberAdapter);
-        taskList.setAdapter(arrayAdapter2);
+        taskList.setAdapter(taskAdapter);
 
         taskListButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,7 +93,7 @@ public class GroupActivity extends AppCompatActivity {
             }
         });
         memberAdapter.notifyDataSetChanged();
-        arrayAdapter2.notifyDataSetChanged();
+        taskAdapter.notifyDataSetChanged();
     }
 
     private void onRequestMemberList() {
@@ -135,6 +137,8 @@ public class GroupActivity extends AppCompatActivity {
         });
     }
 
+
+    //TaskList 가져오기
     private void onRequestTaskList() {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://ec2-54-180-79-126.ap-northeast-2.compute.amazonaws.com:3000/")
@@ -156,16 +160,20 @@ public class GroupActivity extends AppCompatActivity {
                 RegisterResult r = response.body();
 
                 String[] taskList = r.getTask();
+                String[] taskId = r.getTaskId();
+                String[] progress = r.getProgress();
+                String[] comment = r.getComment();
+              //  String[] created = r.getCreated();
+                String[] point = r.getPoint();
+                String[] changedName = r.getChangedName();
 
                 if (taskList.length == 0) {
                     return;
                 }
 
-                Toast.makeText(getApplicationContext(), taskList[0] + taskList.length, Toast.LENGTH_LONG).show();
-
                 for (int i = 0; i < taskList.length; i++) {
-                    confirmedTaskList.add(taskList[i]);
-                    Log.d("ddd", taskList[i] + taskList.length);
+                    Task task = new Task(taskList[i],taskId[i],progress[i],comment[i],point[i],changedName[i]);
+                    confirmedTaskList.add(task);
                 }
                 check2();
             }
@@ -184,8 +192,7 @@ public class GroupActivity extends AppCompatActivity {
     }
 
     private void check2() {
-
-        arrayAdapter2.notifyDataSetChanged();
+        taskAdapter.notifyDataSetChanged();
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -196,9 +203,9 @@ public class GroupActivity extends AppCompatActivity {
                 // TODO: Implement successful signup logic here
                 ArrayList<String> task = (ArrayList<String>) data.getSerializableExtra("task");
                 for (int i = 0; i < task.size(); i++) {
-                    confirmedTaskList.add(task.get(i));
+                  //  confirmedTaskList.add(task.get(i));
                 }
-                arrayAdapter2.notifyDataSetChanged();
+                taskAdapter.notifyDataSetChanged();
             }
         }
     }
