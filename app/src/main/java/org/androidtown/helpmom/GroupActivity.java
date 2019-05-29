@@ -55,7 +55,7 @@ public class GroupActivity extends AppCompatActivity {
         roomNumber = intent.getStringExtra("roomNumber");
         leader = intent.getStringExtra("leader");
         myid = intent.getStringExtra("myId");
-        setTitle(roomNumber);
+        setTitle(roomName);
 
         Log.d("leader", leader);
         Log.d("roomNumber", roomNumber);

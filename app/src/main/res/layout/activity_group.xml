@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:layout_margin="10dp"
+    android:padding="10dp"
+    android:background="@color/default_color"
     >
 
         <TextView
@@ -18,6 +19,10 @@
             />
 
         <ListView
+            android:background="@drawable/custom_lobby_listview"
+            android:divider="@color/default_color"
+            android:padding="7dp"
+            android:dividerHeight="4dp"
             android:id="@+id/memberList"
             android:layout_marginTop="10dp"
             android:layout_width="match_parent"
@@ -37,11 +42,15 @@
             />
 
         <ListView
-            android:id="@+id/taskList"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
             android:layout_marginTop="10dp"
-            android:layout_below="@id/taskListBtn"
+            android:background="@drawable/custom_lobby_listview"
+            android:id="@+id/taskList"
+            android:divider="@color/default_color"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/taskListBtn"
+            android:padding="7dp"
+            android:dividerHeight="4dp"
             android:longClickable="true"
             android:clickable="true"
             >

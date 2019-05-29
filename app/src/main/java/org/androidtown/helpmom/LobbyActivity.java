@@ -20,14 +20,13 @@ import java.util.List;
 
 public class LobbyActivity extends AppCompatActivity {
     Button btn_createRoom, btn_joinRoom;
-//    TextView id,nickname;
     String _id,leader;
 
 
     private RoomListAdapter roomAdapter;
 
     private ListView listView_joinedRoom;
-    //private RoomListAdapter adapter;
+
     private List<Room> joinedRoomList;
 
     private HashMap<String,String> hashMap,roomMaker;
@@ -54,26 +53,14 @@ public class LobbyActivity extends AppCompatActivity {
         listView_joinedRoom = findViewById(R.id.listView_roomList);
         joinedRoomList = new ArrayList<Room>();
         roomAdapter=new RoomListAdapter(LobbyActivity.this, joinedRoomList, _id);
-        Room room1=new Room("동주네 집","장동주");
-        Room room2=new Room("형섭이네 집","송형섭");
-        Room room3=new Room("원식이네 집","신원식");
-        joinedRoomList.add(room1);
-        joinedRoomList.add(room2);
-        joinedRoomList.add(room3);
 
         //onRequestRoomList();
         listView_joinedRoom.setAdapter(roomAdapter);
-//        id = findViewById(R.id.txtView_lobby_userID);
-//        nickname = findViewById(R.id.txtView_lobby_userNickName);
-
 
         for(int i=0;i<roomList.length;i++){
             Room r = new Room(roomList[i],roomMaker.get(roomList[i]));
             joinedRoomList.add(r);
         }
-//        id.setText(_id);
-//        nickname.setText(intent.getStringExtra("name"));
-
         // arrayAdaper로 String을 listView에 바인딩, data를 listView에 display함.
 
         listView_joinedRoom.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -134,6 +121,7 @@ public class LobbyActivity extends AppCompatActivity {
                // Log.d("value" ,hashMap.get(data.getStringExtra("roomName")));
                 joinedRoomList.add(r);
                 roomAdapter.notifyDataSetChanged();
+
             }
         }
     }

@@ -1,14 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:orientation="horizontal"
+    android:layout_height="wrap_content"
+    android:padding="2dp"
+    android:background="@drawable/layout_custom_border_black_background_kakao"
     >
+    <ImageView
+        android:background="@color/default_color"
+        android:id="@+id/imgView_rowItem_icon"
+
+        android:layout_width="27dp"
+        android:layout_height="24dp"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="3dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/children" />
 
     <TextView
+        android:background="@drawable/edit_round"
+        android:textSize="16dp"
+        android:textColor="@color/black"
         android:id="@+id/memberName"
         android:hint="memberName"
+        android:layout_margin="4dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content" />
 
 </LinearLayout>

@@ -1,67 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TableLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_margin = "8dp"
-    android:stretchColumns="*"
-
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="2dp"
+    android:background="@drawable/layout_custom_border_black_background_kakao"
     >
-
-    <TableRow
-
-        android:background="#FFC107"
-        >
+    <RelativeLayout
+        android:layout_margin="4dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
         <TextView
-            android:id="@+id/progress"
+            android:id="@+id/taskName"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
             android:textSize="20dp"
-            android:layout_gravity="center"
-            android:hint="progress"
-
+            android:layout_below="@id/changed"
+            android:textColor="@color/black"
+            android:hint="taskName"
+            android:background="@drawable/edit_round"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
-    <TextView
-        android:id="@+id/taskName"
-        android:hint="taskName"
-        android:textSize="20dp"
-        android:layout_gravity="center"
+      
+        <TextView
+            android:id="@+id/progress"
+            android:background="@drawable/edit_round"
+            android:hint="progress"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="right"/>
 
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/changed"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:hint="changed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
-    <TextView
-        android:id="@+id/point"
-        android:hint="point"
-        android:textSize="20dp"
-        android:layout_gravity="center"
+        <TextView
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:id="@+id/point"
+            android:hint="point"
+            android:gravity="right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    </RelativeLayout>
 
-    </TableRow>
-
-<TableRow
-    android:background="#FFC107"
-    >
-    <TextView
-        android:id="@+id/changed"
-        android:hint="changed"
-        android:textSize="20dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1.5"
-        />
-
-    <TextView
-        android:id="@+id/day"
-        android:text="2019/5/29"
-        android:textSize="20dp"
-        android:layout_gravity="center"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="2.5"
-
-        />
-</TableRow>
-</TableLayout>
+        /LinearLayout>
