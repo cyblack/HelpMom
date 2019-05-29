@@ -82,7 +82,7 @@ public class RegisterActivity extends AppCompatActivity {
                         // onRegisterFailed();
                         progressDialog.dismiss();
                     }
-                }, 4000);
+                }, 2000);
     }
 
     public void onRegister(){

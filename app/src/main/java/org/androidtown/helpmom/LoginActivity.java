@@ -91,7 +91,7 @@ public class LoginActivity extends AppCompatActivity {
                         onRequest();
                         progressDialog.dismiss();
                     }
-                }, 4000);
+                }, 2000);
     }
 
     private void onRequest(){
