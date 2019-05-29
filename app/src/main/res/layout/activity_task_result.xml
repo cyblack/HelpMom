@@ -9,6 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="코멘트                  "
+        android:textColor="@color/black"
         android:textSize="40dp"
         />
 
@@ -26,6 +27,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="평가"
+        android:textColor="@color/black"
         android:layout_marginTop="10dp"
         android:textSize="40dp"
         />

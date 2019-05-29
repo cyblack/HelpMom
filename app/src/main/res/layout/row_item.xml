@@ -38,7 +38,7 @@
 
 
     <CheckBox
-        android:background="@color/kakaoTalk"
+        android:background="@drawable/checkbox_shape"
 
         android:id="@+id/checkBox_listView_row_item"
         android:layout_gravity="center_vertical"
