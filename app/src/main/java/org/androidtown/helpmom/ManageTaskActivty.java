@@ -30,6 +30,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -383,8 +384,19 @@ public class ManageTaskActivty extends AppCompatActivity {
                         return;
                     }
                     RegisterResult r = response.body();
-                    displayTask(roomNumber, list_decided_tasks);
-                    Toast.makeText(getApplicationContext(), "result :  " + r.getTask(), Toast.LENGTH_SHORT).show();
+
+                    int sz = r.getTask().length;
+                    Log.d("dj", sz+"");
+                    ArrayList<Task> tasks = new ArrayList<Task>();
+
+                    for(int i=0;i<sz;i++){
+                        Task t = new Task(r.getTask()[i],r.getTaskId()[i],r.getProgress()[i],r.getComment()[i],r.getPoint()[i],r.getChangedName()[i]);
+                        tasks.add(t);
+                    }
+                    Log.d("takesize",sz+"");
+                    displayTask(roomNumber, list_decided_tasks,tasks);
+                   // Toast.makeText(getApplicationContext(), "result :  " + r.getTask(), Toast.LENGTH_SHORT).show();
+
                 }
 
                 @Override
@@ -394,10 +406,11 @@ public class ManageTaskActivty extends AppCompatActivity {
             });
     }
 
-    private void displayTask(String roomNumber,ArrayList<String> task){
+    private void displayTask(String roomNumber,ArrayList<String> task,ArrayList<Task> tasks){
         Intent intent=new Intent();
         intent.putExtra("roomNumber", roomNumber);
-        intent.putStringArrayListExtra("task", task);
+        intent.putExtra("task", tasks);
+
         setResult(1,intent);
         finish();
     }

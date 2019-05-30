@@ -18,27 +18,10 @@
         android:layout_height="wrap_content"
         android:id="@+id/content"
         android:layout_marginTop="20dp"
-        android:text="참 잘했어요."
         android:textSize="16dp"
         android:layout_marginBottom="10dp"
         />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="평가"
-        android:textColor="@color/black"
-        android:layout_marginTop="10dp"
-        android:textSize="40dp"
-        />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/score"
-        android:text="100점"
-        android:layout_marginTop="10dp"
-        android:textSize="16dp"/>
     <android.support.v7.widget.AppCompatButton
         android:id="@+id/backBtn"
         android:layout_below="@id/feedback"

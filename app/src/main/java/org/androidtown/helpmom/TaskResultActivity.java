@@ -1,5 +1,6 @@
 package org.androidtown.helpmom;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -20,6 +21,8 @@ public class TaskResultActivity extends AppCompatActivity {
         backBtn=findViewById(R.id.backBtn);
         content=findViewById(R.id.content);
 
+        Intent intent=getIntent();
+        content.setText(intent.getStringExtra("comment"));
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
