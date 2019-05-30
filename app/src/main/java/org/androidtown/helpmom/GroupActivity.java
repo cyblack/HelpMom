@@ -89,7 +89,9 @@ public class GroupActivity extends AppCompatActivity {
         taskList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                startActivity(new Intent(GroupActivity.this,TaskResultActivity.class));
+                Intent intent=new Intent(GroupActivity.this,TaskResultActivity.class);
+                intent.putExtra("comment",confirmedTaskList.get(i).getComment());
+                startActivity(intent);
             }
         });
         memberAdapter.notifyDataSetChanged();
@@ -201,11 +203,15 @@ public class GroupActivity extends AppCompatActivity {
             if (resultCode == 1) {
 
                 // TODO: Implement successful signup logic here
-                ArrayList<String> task = (ArrayList<String>) data.getSerializableExtra("task");
+                ArrayList<Task> task = (ArrayList<Task>) data.getSerializableExtra("task");
+           //     Log.d("qwer",task.get(0).getTaskName());
+
                 for (int i = 0; i < task.size(); i++) {
-                  //  confirmedTaskList.add(task.get(i));
+                    Task t = new Task(task.get(i).getTaskName(),task.get(i).getTaskId(),task.get(i).getProgress()
+                            ,task.get(i).getComment(),task.get(i).getPoint(),task.get(i).getChangedName());
+                    confirmedTaskList.add(t);
                 }
-                taskAdapter.notifyDataSetChanged();
+              taskAdapter.notifyDataSetChanged();
             }
         }
     }
@@ -275,7 +281,9 @@ public class GroupActivity extends AppCompatActivity {
             case R.id.evaluateTask:
                 if(myid.equals(leader))
                 {
-                    startActivity(new Intent(GroupActivity.this,EvaluateActivity.class));
+                    Intent intent=new Intent(GroupActivity.this,EvaluateActivity.class);
+                    intent.putExtra("taskId",confirmedTaskList.get(index).getTaskId());
+                    startActivity(intent);
                 }
                 else
                 {

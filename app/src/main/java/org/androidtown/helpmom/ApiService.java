@@ -49,4 +49,9 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("createTask")
     Call<RegisterResult> createTask(@Field("roomNumber") String roomNumber, @Field("task") ArrayList<String> task);
+
+
+    @FormUrlEncoded
+    @POST("evaluate")
+    Call<RegisterResult> evaluate(@Field("taskId") String taskId, @Field("comment") String comment,@Field("point") String point);
 }

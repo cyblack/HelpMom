@@ -1,6 +1,8 @@
 package org.androidtown.helpmom;
 
-public class Task {
+import java.io.Serializable;
+
+public class Task implements Serializable {
 
     String taskName,taskId,progress,comment,created,point,changedName;
 
