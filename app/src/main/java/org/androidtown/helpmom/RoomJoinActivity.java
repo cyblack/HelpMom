@@ -41,6 +41,11 @@ public class RoomJoinActivity extends AppCompatActivity {
         joinBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 //TODO: ENROLL ON DATABASE
+
+                if(!validate()){
+                    return;
+                }
+
                 String id = joinID.getText().toString();
                 String name = joinName.getText().toString();
                 String pw = joinPW.getText().toString();
@@ -64,17 +69,19 @@ public class RoomJoinActivity extends AppCompatActivity {
                         }
 
                         RegisterResult r = response.body();
-                        Toast.makeText(getApplicationContext(), "res " + r.getRes(), Toast.LENGTH_SHORT).show();
 
-                        Intent intent = new Intent();
-
-                        intent.putExtra("roomName",r.getJoinRoom());
-                        intent.putExtra("maker",r.getRoomMaker()[0]);
-                        intent.putExtra("roomNumber",r.getRoomNumber()[0]);
-                        setResult(2,intent);
-                        finish();
+                        if(r.getRes().equals("fail")){
+                            Toast.makeText(getApplicationContext(), "방 가입에 실패했습니다." + response.code(), Toast.LENGTH_SHORT).show();
+                        }else {
+                            Toast.makeText(getApplicationContext(), "방에 가입했습니다.", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent();
+                            intent.putExtra("roomName", r.getJoinRoom());
+                            intent.putExtra("maker", r.getRoomMaker()[0]);
+                            intent.putExtra("roomNumber", r.getRoomNumber()[0]);
+                            setResult(2, intent);
+                            finish();
+                        }
                     }
-
                     @Override
                     public void onFailure(Call<RegisterResult> call, Throwable t) {
                         Toast.makeText(getApplicationContext(), "실패: " + t.getMessage(), Toast.LENGTH_SHORT).show();
@@ -84,5 +91,29 @@ public class RoomJoinActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    private boolean validate(){
+
+        String n = joinName.getText().toString();
+        String p = joinPW.getText().toString();
+        String d = joinID.getText().toString();
+        boolean valid = true;
+
+        if(joinName.length()==0){
+            joinName.setError("그룹 이름이 비었습니다");
+            valid = false;
+        }
+        if(joinPW.length()==0){
+            joinPW.setError("그룹 비밀번호가 비었습니다");
+            valid = false;
+        }
+        if(joinID.length()==0){
+            joinID.setError("리더 아이디가 비었습니다");
+            valid = false;
+        }
+
+        return valid;
+
     }
 }

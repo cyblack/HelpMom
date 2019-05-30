@@ -2,6 +2,7 @@ package org.androidtown.helpmom;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -29,10 +31,15 @@ public class LoginActivity extends AppCompatActivity {
     private static final int REQUEST_SIGNUP = 0;
     private static final String TAG = "LoginActivity";
 
+
+    private String pid,pwd;
     private EditText id,pw;
     private Button login;
     private TextView register;
+    private boolean saveLoginData;
+    private CheckBox checkBox;
 
+    private SharedPreferences appData;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,10 +51,21 @@ public class LoginActivity extends AppCompatActivity {
         pw=findViewById(R.id.pw);
         login = findViewById(R.id.login);
         register = findViewById(R.id.register);
+        checkBox = findViewById(R.id.autoLogin);
+
+        appData = getSharedPreferences("auto",MODE_PRIVATE);
+        load();
+
+        if(saveLoginData){
+            id.setText(pid);
+            pw.setText(pwd);
+            checkBox.setChecked(saveLoginData);
+        }
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                save();
                 login();
             }
         });
@@ -61,6 +79,23 @@ public class LoginActivity extends AppCompatActivity {
                 startActivityForResult(intent, REQUEST_SIGNUP);
             }
         });
+    }
+
+    public void load(){
+        saveLoginData = appData.getBoolean("SAVE_LOGIN_DATA",false);
+        pid = appData.getString("ID","");
+        pwd = appData.getString("PWD","");
+    }
+
+    public void save(){
+
+        SharedPreferences.Editor editor = appData.edit();
+
+        editor.putBoolean("SAVE_LOGIN_DATA",checkBox.isChecked());
+        editor.putString("ID",id.getText().toString().trim());
+        editor.putString("PWD",pw.getText().toString().trim());
+        editor.apply();
+
     }
 
     public void login() {
@@ -77,9 +112,6 @@ public class LoginActivity extends AppCompatActivity {
         progressDialog.setIndeterminate(true);
         progressDialog.setMessage("로그인 중...");
         progressDialog.show();
-
-
-
 
 
         new android.os.Handler().postDelayed(
@@ -124,8 +156,7 @@ public class LoginActivity extends AppCompatActivity {
                     onLoginFailed();
                 }else {
 
-                    Toast.makeText(getApplicationContext(), "result2 :  " + r.getRes(), Toast.LENGTH_SHORT).show();
-
+                    Toast.makeText(getApplicationContext(), "로그인 성공하였습니다", Toast.LENGTH_SHORT).show();
                     //onLoginSuccess(r.getId(),r.getName());
                     onRequestRoomList(r.getId(),r.getName());
                 }

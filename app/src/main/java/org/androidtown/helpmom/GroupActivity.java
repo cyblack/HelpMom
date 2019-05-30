@@ -35,10 +35,8 @@ public class GroupActivity extends AppCompatActivity {
     private List<Member> joinedMemberList;
     private MemberListAdapter memberAdapter;
 
-
     private List<Task> confirmedTaskList;
     private TaskListAdapter taskAdapter;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +65,7 @@ public class GroupActivity extends AppCompatActivity {
         joinedMemberList = new ArrayList<Member>();
         confirmedTaskList = new ArrayList<Task>();
 
-        memberAdapter = new MemberListAdapter(getApplicationContext(), joinedMemberList, leader);
+        memberAdapter = new MemberListAdapter(getApplicationContext(), joinedMemberList, leader,myid);
         taskAdapter = new TaskListAdapter(getApplication(),confirmedTaskList);
 
 
@@ -121,14 +119,11 @@ public class GroupActivity extends AppCompatActivity {
                 if (memberList.length == 0) {
                     return;
                 }
-
-                Toast.makeText(getApplicationContext(), memberList[0] + memberList.length, Toast.LENGTH_LONG).show();
                 for (int i = 0; i < memberList.length; i++) {
                     Member m = new Member(memberList[i]);
                     joinedMemberList.add(m);
                 }
                 check1();
-
             }
 
             @Override
@@ -138,7 +133,6 @@ public class GroupActivity extends AppCompatActivity {
             }
         });
     }
-
 
     //TaskList 가져오기
     private void onRequestTaskList() {
@@ -165,7 +159,7 @@ public class GroupActivity extends AppCompatActivity {
                 String[] taskId = r.getTaskId();
                 String[] progress = r.getProgress();
                 String[] comment = r.getComment();
-              //  String[] created = r.getCreated();
+                String[] created = r.getCreated();
                 String[] point = r.getPoint();
                 String[] changedName = r.getChangedName();
 
@@ -174,7 +168,14 @@ public class GroupActivity extends AppCompatActivity {
                 }
 
                 for (int i = 0; i < taskList.length; i++) {
-                    Task task = new Task(taskList[i],taskId[i],progress[i],comment[i],point[i],changedName[i]);
+                    String c =created[i];
+                    String cn = changedName[i];
+                    if(cn.equals("none")){
+                        cn = "변경한 사람이 없습니다.";
+                        c ="변경한 사람이 없습니다.";
+                    }
+                    Log.d("list",taskList[i]+" "+" "+progress[i]+" "+ comment[i]+" " +point[i]+" " +changedName[i]+" "+created[i]);
+                    Task task = new Task(taskList[i],progress[i],comment[i],point[i],cn,c);
                     confirmedTaskList.add(task);
                 }
                 check2();
@@ -207,11 +208,47 @@ public class GroupActivity extends AppCompatActivity {
            //     Log.d("qwer",task.get(0).getTaskName());
 
                 for (int i = 0; i < task.size(); i++) {
-                    Task t = new Task(task.get(i).getTaskName(),task.get(i).getTaskId(),task.get(i).getProgress()
-                            ,task.get(i).getComment(),task.get(i).getPoint(),task.get(i).getChangedName());
+                    String c =task.get(i).getCreated();
+                    String cn = task.get(i).getChangedName();
+                    if(task.get(i).getCreated().equals("none")){
+                        cn = "변경한 사람이 없습니다.";
+                        c ="변경한 사람이 없습니다.";
+                    }
+                    Task t = new Task(task.get(i).getTaskName(),task.get(i).getProgress()
+                            ,task.get(i).getComment(),task.get(i).getPoint(),cn,c);
                     confirmedTaskList.add(t);
                 }
               taskAdapter.notifyDataSetChanged();
+            }
+            else if(resultCode==2){ //point와 feedback 돌아옴
+                String p = data.getStringExtra("point");
+                String f = data.getStringExtra("feedback");
+                String tn = data.getStringExtra("taskName");
+                //taskName이 프라이머리 키다.
+                for(int i=0;i<confirmedTaskList.size();i++){
+                    if(confirmedTaskList.get(i).getTaskName().equals(tn)){
+                         confirmedTaskList.get(i).setComment(f);
+                         confirmedTaskList.get(i).setPoint(p);
+                         break;
+                    }
+                }
+                taskAdapter.notifyDataSetChanged();
+            }else if(resultCode==3){//progress변경
+                String p = data.getStringExtra("progress");
+                String tn = data.getStringExtra("taskName");
+                String nw = data.getStringExtra("now");
+                Log.d("output",p);
+                //taskName이 프라이머리 키다.
+                for(int i=0;i<confirmedTaskList.size();i++){
+                    if(confirmedTaskList.get(i).getTaskName().equals(tn)){
+                        confirmedTaskList.get(i).setProgress(p);
+                        confirmedTaskList.get(i).setChangedName(myid);
+                        confirmedTaskList.get(i).setCreated(nw);
+                        break;
+                    }
+                }
+                taskAdapter.notifyDataSetChanged();
+
             }
         }
     }
@@ -274,7 +311,13 @@ public class GroupActivity extends AppCompatActivity {
 
 
             case R.id.performTask:
-                startActivity(new Intent(GroupActivity.this,PerformTaskActivity.class));
+
+                Intent intent2=new Intent(GroupActivity.this,PerformTaskActivity.class);
+                intent2.putExtra("taskName",confirmedTaskList.get(index).getTaskName());
+                intent2.putExtra("myId",myid);
+
+                startActivityForResult(intent2,2);
+                //startActivity(new Intent(GroupActivity.this,PerformTaskActivity.class));
                 break;
 
 
@@ -282,8 +325,8 @@ public class GroupActivity extends AppCompatActivity {
                 if(myid.equals(leader))
                 {
                     Intent intent=new Intent(GroupActivity.this,EvaluateActivity.class);
-                    intent.putExtra("taskId",confirmedTaskList.get(index).getTaskId());
-                    startActivity(intent);
+                    intent.putExtra("taskName",confirmedTaskList.get(index).getTaskName());
+                    startActivityForResult(intent,2);
                 }
                 else
                 {
@@ -295,3 +338,4 @@ public class GroupActivity extends AppCompatActivity {
 
     }
 }
+

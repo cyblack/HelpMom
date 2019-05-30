@@ -44,11 +44,13 @@ public class TaskListAdapter extends BaseAdapter {
         TextView progress = (TextView)v.findViewById(R.id.progress);
         TextView changed = (TextView)v.findViewById(R.id.changed);
         TextView point = (TextView)v.findViewById(R.id.point);
+        TextView date = (TextView)v.findViewById(R.id.date);
 
         taskName.setText(taskList.get(i).getTaskName());
-        progress.setText(taskList.get(i).getProgress());
+        progress.setText(taskList.get(i).getProgress()+"%완료");
         changed.setText(taskList.get(i).getChangedName());
-        point.setText(taskList.get(i).getPoint());
+        point.setText("leader : "+taskList.get(i).getPoint());
+        date.setText(taskList.get(i).getCreated());
 
 
         return v;

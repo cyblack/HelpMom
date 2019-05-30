@@ -14,11 +14,12 @@ public class MemberListAdapter extends BaseAdapter {
     private List<Member> memberList;
 
     private String leader;
-
-    public MemberListAdapter(Context context, List<Member> memberList, String leader){
+    private String myName;
+    public MemberListAdapter(Context context, List<Member> memberList, String leader,String myName){
         this.context = context;
         this.memberList = memberList;
         this.leader = leader;
+        this.myName = myName;
     }
 
     @Override
@@ -46,8 +47,19 @@ public class MemberListAdapter extends BaseAdapter {
 
         if(memberList.get(i).getMemberName().equals(leader)) {
             memberName.setTextColor(Color.BLUE);
+
+            if(memberList.get(i).getMemberName().equals(myName)){
+                memberName.setText(memberList.get(i).getMemberName() + "(리더) (나)");
+            }else {
+                memberName.setText(memberList.get(i).getMemberName() + "(리더)");
+            }
+        }else {
+            if(memberList.get(i).getMemberName().equals(myName)){
+                memberName.setText(memberList.get(i).getMemberName() + "(나)");
+            }else {
+                memberName.setText(memberList.get(i).getMemberName());
+            }
         }
-        memberName.setText(memberList.get(i).getMemberName());
         return v;
     }
 }

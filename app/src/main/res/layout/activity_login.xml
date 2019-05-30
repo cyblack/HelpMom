@@ -64,4 +64,11 @@
         android:gravity="center"
         android:textSize="16dp"/>
 
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="아이디 비밀번호 기억"
+        android:id="@+id/autoLogin"
+        />
+
 </LinearLayout>

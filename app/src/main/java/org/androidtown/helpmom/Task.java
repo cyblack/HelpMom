@@ -4,14 +4,41 @@ import java.io.Serializable;
 
 public class Task implements Serializable {
 
-    String taskName,taskId,progress,comment,created,point,changedName;
+    String taskName,progress,comment,created,point,changedName;
 
-    public Task(String taskName,String taskId,String progress,String comment,String point, String changedName){
+    public Task(String taskName,String progress,String comment,String point, String changedName,String created){
         this.taskName = taskName;
-        this.taskId = taskId;
+
         this.progress = progress;
         this.comment = comment;
         this.point = point;
+        this.changedName = changedName;
+        this.created = created;
+    }
+
+    public void setTaskName(String taskName) {
+        this.taskName = taskName;
+    }
+
+
+
+    public void setProgress(String progress) {
+        this.progress = progress;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
+    public void setCreated(String created) {
+        this.created = created;
+    }
+
+    public void setPoint(String point) {
+        this.point = point;
+    }
+
+    public void setChangedName(String changedName) {
         this.changedName = changedName;
     }
 
@@ -19,9 +46,6 @@ public class Task implements Serializable {
         return taskName;
     }
 
-    public String getTaskId() {
-        return taskId;
-    }
 
     public String getProgress() {
         return progress;

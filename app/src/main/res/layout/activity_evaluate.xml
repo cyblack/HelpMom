@@ -36,7 +36,7 @@
         <EditText android:id="@+id/point"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPassword"
+            android:inputType="text"
             android:hint="평가 점수"/>
 
     </android.support.design.widget.TextInputLayout>

@@ -39,9 +39,12 @@ public class RoomCreateActivity extends AppCompatActivity {
             public void onClick(View v){
                 //TODO: IMPLEMENTATION OF REQUEST DATABASE
 
+                if(!validate()){
+                    return;
+                }
+
                 String name = createName.getText().toString();
                 String pw = createPW.getText().toString();
-
 
                 Retrofit retrofit = new Retrofit.Builder()
                         .baseUrl("http://ec2-54-180-79-126.ap-northeast-2.compute.amazonaws.com:3000/")
@@ -61,22 +64,50 @@ public class RoomCreateActivity extends AppCompatActivity {
                         }
 
                         RegisterResult r = response.body();
-                        Toast.makeText(getApplicationContext(), "그룹 생성:  " + r.getRes(), Toast.LENGTH_SHORT).show();
-                       // onLoginSuccess();
-                        Intent intent = new Intent();
-                        intent.putExtra("roomName",createName.getText().toString());
 
-                        intent.putExtra("roomNumber",r.getRoomNumber()[0]);
-                        setResult(1,intent);
-                        finish();
+                        if(r.getRes().equals("already")){
+
+                        }else if(r.getRes().equals("fail")){ //등록 실패
+
+                            Toast.makeText(getApplicationContext(), "방 생성 실패", Toast.LENGTH_SHORT).show();
+
+                        }else{ //등록 성공
+
+                            Toast.makeText(getApplicationContext(), "방 등록 성공" , Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent();
+                            intent.putExtra("roomName",createName.getText().toString());
+                            intent.putExtra("roomNumber",r.getRoomNumber()[0]);
+                            setResult(1,intent);
+                            finish();
+                        }
+
+
                     }
                     @Override
                     public void onFailure(Call<RegisterResult> call, Throwable t) {
                         Toast.makeText(getApplicationContext(), "실패: " + t.getMessage(), Toast.LENGTH_SHORT).show();
-                       // onLoginFailed();
+
                     }
                 });
             }
         });
+    }
+
+    private boolean validate(){
+
+        String cn = createName.getText().toString();
+        String cp = createPW.getText().toString();
+        boolean valid = true;
+
+        if(createName.length()==0){
+            createName.setError("그룹 이름이 비었습니다");
+            valid = false;
+        }
+        if(createPW.length()==0){
+            createPW.setError("그룹 비밀번호가 비었습니다");
+            valid = false;
+        }
+
+        return valid;
     }
 }

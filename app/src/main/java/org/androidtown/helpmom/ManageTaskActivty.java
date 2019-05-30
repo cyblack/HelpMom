@@ -59,7 +59,7 @@ public class ManageTaskActivty extends AppCompatActivity {
     // ListView의 onItemClickListener 에 쓰임.
     int default_backgroundColor = Color.parseColor("#fcfdff"); //기존 배경색
     int checkedColor = Color.parseColor("#f9b37a"); //체크됬을때 배경색
-
+    int count = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,14 +72,14 @@ public class ManageTaskActivty extends AppCompatActivity {
 //        drawable_addTask.setBounds(0, 0, width, height);
 //        addTask.setCompoundDrawables(drawable_addTask, null, null, null);
 
-
+        setTitle("TASK 관리창");
         listView_addedTask = (ListView) findViewById(R.id.listView_taskStored);
         editText_addTask = (EditText) findViewById(R.id.editText_addTask);
         btn_addTask = (Button) findViewById(R.id.btn_addTask);
         btn_delete_tasks = (Button) findViewById(R.id.btn_delete_tasks);
         listView_addedTask =  findViewById(R.id.listView_taskStored);
         editText_addTask =  findViewById(R.id.editText_addTask);
-        btn_addTask = findViewById(R.id.btn_addTask);
+
         btn_delete_tasks =  findViewById(R.id.btn_delete_tasks);
         btn_confirm_tasks=findViewById(R.id.confirm_tasks);
         // Data 리스트
@@ -98,7 +98,20 @@ public class ManageTaskActivty extends AppCompatActivity {
         btn_confirm_tasks.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Confirm();
+
+                //리스트가 없으면 막아야함
+                if(count==0) {
+                    Toast.makeText(getApplicationContext(),"TASK를 추가하세요",Toast.LENGTH_LONG).show();
+                    return;
+                }else if(checkCount()==0){
+                    Toast.makeText(getApplicationContext(), "추가 할 TASK를 선택하세요", Toast.LENGTH_LONG).show();
+                    return;
+                }
+                else{
+                    Confirm();
+                }
+
+
             }
         });
         listView_addedTask.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -158,6 +171,8 @@ public class ManageTaskActivty extends AppCompatActivity {
                     // 초기화
                     editText_addTask.setText("");
                     // ListView 높이 동적 변화 : 350dp -> 150dp
+
+                    count++;
                 }
             }
         });
@@ -167,40 +182,65 @@ public class ManageTaskActivty extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                AlertDialog alertDialog = new AlertDialog.Builder(ManageTaskActivty.this).create();
-                alertDialog.setMessage("선택한 일을 삭제 하시겠습니까?");
+                if (count == 0 ) {//리스트에 올라온개수..체크한 개수 별도로생각
+                    Toast.makeText(getApplicationContext(), "삭제 할 TASK가 없습니다", Toast.LENGTH_LONG).show();
+                    return;
+                }else if(checkCount()==0){
+                    Toast.makeText(getApplicationContext(), "삭제 할 TASK를 선택하세요", Toast.LENGTH_LONG).show();
+                    return;
+                }
+                else {
+                    AlertDialog alertDialog = new AlertDialog.Builder(ManageTaskActivty.this).create();
+                    alertDialog.setMessage("선택한 일을 삭제 하시겠습니까?");
+                    alertDialog.setButton(Dialog.BUTTON_POSITIVE, "예", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int which) {
 
-                alertDialog.setButton(Dialog.BUTTON_POSITIVE, "예", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int which) {
+                            int size = datas.size();
+                            for (int i = 0; i < size; i++) {
+                                // unselect the checkedboxes.
+                                Data_Format data_format = datas.get(i);
 
-                        int size = datas.size();
-                        for (int i = 0; i < size; i++) {
-                            // unselect the checkedboxes.
-                            Data_Format data_format = datas.get(i);
-
-                            if (data_format.isChecked()) {
-                                datas.remove(i);
-                                i--;
-                                size = datas.size();
+                                if (data_format.isChecked()) {
+                                    datas.remove(i);
+                                    i--;
+                                    size = datas.size();
+                                    count--;
+                                }
                             }
+                            // update
+                            adapter.notifyDataSetChanged();
                         }
-                        // update
-                        adapter.notifyDataSetChanged();
-                    }
-                });
+                    });
 
-                alertDialog.setButton(Dialog.BUTTON_NEGATIVE, "아니오", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
+                    alertDialog.setButton(Dialog.BUTTON_NEGATIVE, "아니오", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
 
-                    }
-                });
+                        }
+                    });
 
-                alertDialog.show();
+                    alertDialog.show();
+                }
             }
         });
+
+
     }
+
+    private int checkCount(){
+        int size = datas.size();
+        int c = 0;
+        for (int i = 0; i < size; i++) {
+            // unselect the checkedboxes.
+            if (datas.get(i).isChecked()) {
+               c++;
+            }
+        }
+        return c;
+
+    }
+
 
     // 각 listView의 row에 display할 내용의 포맷.
     public class Data_Format {
@@ -389,16 +429,19 @@ public class ManageTaskActivty extends AppCompatActivity {
                     Log.d("dj", sz+"");
                     ArrayList<Task> tasks = new ArrayList<Task>();
 
-                    for(int i=0;i<sz;i++){
-                        Task t = new Task(r.getTask()[i],r.getTaskId()[i],r.getProgress()[i],r.getComment()[i],r.getPoint()[i],r.getChangedName()[i]);
-                        tasks.add(t);
+                    if(r.getRes().equals("one")){
+                        Log.d("one","one");
+
+                    }else {
+
+                        for (int i = 0; i < sz; i++) {
+                            Task t = new Task(r.getTask()[i], r.getProgress()[i], r.getComment()[i], r.getPoint()[i], r.getChangedName()[i], r.getCreated()[i]);
+                            tasks.add(t);
+                        }
                     }
-                    Log.d("takesize",sz+"");
                     displayTask(roomNumber, list_decided_tasks,tasks);
-                   // Toast.makeText(getApplicationContext(), "result :  " + r.getTask(), Toast.LENGTH_SHORT).show();
 
                 }
-
                 @Override
                 public void onFailure(Call<RegisterResult> call, Throwable t) {
                     Toast.makeText(getApplicationContext(), "실패: " + t.getMessage(), Toast.LENGTH_SHORT).show();
@@ -410,7 +453,6 @@ public class ManageTaskActivty extends AppCompatActivity {
         Intent intent=new Intent();
         intent.putExtra("roomNumber", roomNumber);
         intent.putExtra("task", tasks);
-
         setResult(1,intent);
         finish();
     }

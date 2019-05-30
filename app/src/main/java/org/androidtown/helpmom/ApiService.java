@@ -53,5 +53,10 @@ public interface ApiService {
 
     @FormUrlEncoded
     @POST("evaluate")
-    Call<RegisterResult> evaluate(@Field("taskId") String taskId, @Field("comment") String comment,@Field("point") String point);
+    Call<RegisterResult> evaluate(@Field("taskName") String taskName, @Field("comment") String comment,@Field("point") String point);
+
+    @FormUrlEncoded
+    @POST("progress")
+    Call<RegisterResult> progress(@Field("taskName") String taskName, @Field("progress") String progress,@Field("changedId") String changedId
+    ,@Field("changed") String changed);
 }
