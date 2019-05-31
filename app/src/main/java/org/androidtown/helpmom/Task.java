@@ -20,8 +20,6 @@ public class Task implements Serializable {
         this.taskName = taskName;
     }
 
-
-
     public void setProgress(String progress) {
         this.progress = progress;
     }
@@ -45,7 +43,6 @@ public class Task implements Serializable {
     public String getTaskName() {
         return taskName;
     }
-
 
     public String getProgress() {
         return progress;
