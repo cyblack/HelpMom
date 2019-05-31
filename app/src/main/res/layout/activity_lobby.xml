@@ -28,22 +28,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@id/profile"
+            android:layout_marginLeft="5dp"
             android:text="name"
             android:textColor="@color/black"
             android:textSize="20sp" />
 
         <TextView
-            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="4dp"
             android:id="@+id/userId"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/userName"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_toRightOf="@id/profile"
-            android:text="ID"
+            android:layout_gravity="center_vertical"
+            android:text="(ID)"
             android:textColor="@color/black"
             android:textSize="20dp" />
 

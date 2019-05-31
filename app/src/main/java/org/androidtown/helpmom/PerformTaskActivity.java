@@ -44,7 +44,7 @@ public class PerformTaskActivity extends AppCompatActivity {
         taskName=intent.getStringExtra("taskName");
         changeId = intent.getStringExtra("myId");
 
-        SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd / HH시 mm분 ss초");
+        SimpleDateFormat format1 = new SimpleDateFormat("h시 mm분 a");
         Date time = new Date();
         now = format1.format(time);
 
@@ -129,7 +129,7 @@ public class PerformTaskActivity extends AppCompatActivity {
     }
     public void back(){
         Intent intent = new Intent();
-        intent.putExtra("progress",performProgress.getText().toString());
+        intent.putExtra("progress",performProgress.getText().toString()+"%");
         intent.putExtra("taskName",taskName);
         intent.putExtra("now",now);
         Log.d("progress",performProgress.getText().toString());
