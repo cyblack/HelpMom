@@ -42,7 +42,7 @@ public class MemberListAdapter extends BaseAdapter {
 
         View v = View.inflate(context,R.layout.member,null);
 
-        TextView memberName = (TextView)v.findViewById(R.id.memberName);
+        TextView memberName = v.findViewById(R.id.memberName);
 
 
         if(memberList.get(i).getMemberName().equals(leader)) {
