@@ -1,4 +1,4 @@
-package org.androidtown.helpmom.perform_and_evaluate;
+package org.androidtown.helpmom;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;

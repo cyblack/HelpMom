@@ -14,9 +14,6 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import org.androidtown.helpmom.perform_and_evaluate.EvaluateActivity;
-import org.androidtown.helpmom.perform_and_evaluate.PerformTaskActivity;
-
 import java.util.ArrayList;
 import java.util.List;
 
