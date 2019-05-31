@@ -186,6 +186,39 @@ public class GroupActivity extends AppCompatActivity {
 
     }
 
+    //Task삭제 구현함수
+    private void onDeleteTask() {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://ec2-54-180-79-126.ap-northeast-2.compute.amazonaws.com:3000/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        ApiService service = retrofit.create(ApiService.class);
+        //수정필요.
+        Call<RegisterResult> call = service.getTask(roomNumber);
+
+        call.enqueue(new Callback<RegisterResult>() {
+            @Override
+            public void onResponse(Call<RegisterResult> call, Response<RegisterResult> response) {
+
+                if (!response.isSuccessful()) {
+                    Toast.makeText(getApplicationContext(), "code " + response.code(), Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                RegisterResult r = response.body();
+
+            }
+
+            @Override
+            public void onFailure(Call<RegisterResult> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "실패: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                // onLoginFailed();
+            }
+        });
+
+    }
+
     private void check1() {
         memberAdapter.notifyDataSetChanged();
     }
@@ -244,11 +277,9 @@ public class GroupActivity extends AppCompatActivity {
                     }
                 }
                 taskAdapter.notifyDataSetChanged();
-
             }
         }
     }
-
     //menu
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -328,6 +359,19 @@ public class GroupActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "리더만 평가할 수 있습니다.", Toast.LENGTH_LONG).show();
                 }
                 break;
+            case R.id.deleteTask:
+                if(myid.equals(leader))
+                {
+                    //TASK삭제 구현하기
+                    onDeleteTask();
+                }
+                else
+                {
+                    Toast.makeText(getApplicationContext(), "리더만 삭제할 수 있습니다.", Toast.LENGTH_LONG).show();
+                }
+                break;
+
+
         }
         return true;
 

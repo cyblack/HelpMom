@@ -6,5 +6,8 @@
         android:title="진행하기"/>
     <item android:id="@+id/evaluateTask"
         android:title="평가하기"/>
+    <item android:id ="@+id/deleteTask"
+        android:title="삭제하기"
+        />
 </menu>
 
