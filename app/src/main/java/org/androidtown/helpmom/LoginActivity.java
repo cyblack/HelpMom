@@ -40,6 +40,7 @@ public class LoginActivity extends AppCompatActivity {
     private CheckBox checkBox;
 
     private SharedPreferences appData;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,7 +72,6 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         register.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
                 // Start the Signup activity
@@ -88,7 +88,6 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void save(){
-
         SharedPreferences.Editor editor = appData.edit();
 
         editor.putBoolean("SAVE_LOGIN_DATA",checkBox.isChecked());
@@ -106,7 +105,7 @@ public class LoginActivity extends AppCompatActivity {
         }
         login.setEnabled(false);
 
-        /* Progress Effect */
+                /* Progress Effect */
         final ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this,
                 R.style.Theme_AppCompat_DayNight_Dialog);
         progressDialog.setIndeterminate(true);

@@ -14,6 +14,7 @@ public class TaskListAdapter extends BaseAdapter {
 
     private Context context;
     private List<Task> taskList;
+
     public TaskListAdapter(Context context,List<Task> taskList){
         this.taskList = taskList;
         this.context = context;
@@ -51,7 +52,6 @@ public class TaskListAdapter extends BaseAdapter {
         changed.setText(taskList.get(i).getChangedName());
         point.setText("leader : "+taskList.get(i).getPoint());
         date.setText(taskList.get(i).getCreated());
-
 
         return v;
     }

@@ -10,6 +10,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import org.androidtown.helpmom.ApiService;
+import org.androidtown.helpmom.R;
+import org.androidtown.helpmom.RegisterResult;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -20,13 +24,16 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class PerformTaskActivity extends AppCompatActivity {
+
     Button performBtn;
     EditText performProgress;
     String taskName,changeId,now;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.setFinishOnTouchOutside(false);
+
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_perform_task);
 

@@ -60,6 +60,8 @@ public class ManageTaskActivty extends AppCompatActivity {
     int default_backgroundColor = Color.parseColor("#fcfdff"); //기존 배경색
     int checkedColor = Color.parseColor("#f9b37a"); //체크됬을때 배경색
     int count = 0;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -224,9 +226,8 @@ public class ManageTaskActivty extends AppCompatActivity {
                 }
             }
         });
-
-
     }
+
 
     private int checkCount(){
         int size = datas.size();
@@ -238,7 +239,6 @@ public class ManageTaskActivty extends AppCompatActivity {
             }
         }
         return c;
-
     }
 
 
@@ -399,6 +399,7 @@ public class ManageTaskActivty extends AppCompatActivity {
     public void Confirm(){
         Intent intent=getIntent();
         final String roomNumber=intent.getStringExtra("roomNumber");
+
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://ec2-54-180-79-126.ap-northeast-2.compute.amazonaws.com:3000/")
                 .addConverterFactory(GsonConverterFactory.create())
@@ -413,6 +414,7 @@ public class ManageTaskActivty extends AppCompatActivity {
                 list_decided_tasks.add(datas.get(i).getTask_detail());
             }
         }
+
 
             Call<RegisterResult> call = service.createTask(roomNumber,list_decided_tasks);
 
@@ -433,7 +435,6 @@ public class ManageTaskActivty extends AppCompatActivity {
                         Log.d("one","one");
 
                     }else {
-
                         for (int i = 0; i < sz; i++) {
                             Task t = new Task(r.getTask()[i], r.getProgress()[i], r.getComment()[i], r.getPoint()[i], r.getChangedName()[i], r.getCreated()[i]);
                             tasks.add(t);
