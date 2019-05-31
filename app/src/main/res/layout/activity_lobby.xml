@@ -64,7 +64,8 @@
             android:layout_weight="1"
             android:background="@drawable/button_custom"
             android:text="그룹 가입"
-            android:textSize="18dp" />
+            android:textSize="18dp"
+            />
 
     </LinearLayout>
 

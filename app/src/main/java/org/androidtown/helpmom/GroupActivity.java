@@ -61,6 +61,10 @@ public class GroupActivity extends AppCompatActivity {
         joinedMemberList = new ArrayList<Member>();
         confirmedTaskList = new ArrayList<Task>();
 
+        // 추가된코드: confirmedTskList에 아무거나 하나 넣어보자.
+        confirmedTaskList.add(new Task("설거지(아침)", "50%", "좋다" ,"70점","엄마",
+                "오후 3시"));
+
         memberAdapter = new MemberListAdapter(getApplicationContext(), joinedMemberList, leader,myid);
         taskAdapter = new TaskListAdapter(getApplication(),confirmedTaskList);
 
@@ -90,7 +94,7 @@ public class GroupActivity extends AppCompatActivity {
         });
         memberAdapter.notifyDataSetChanged();
         taskAdapter.notifyDataSetChanged();
-    }
+}
 
     private void onRequestMemberList() {
         Retrofit retrofit = new Retrofit.Builder()
