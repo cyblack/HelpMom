@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="2dp"
+    android:background="@drawable/custom_lobby_listview"
+    >
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:id="@+id/ll_group_task1_1"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <TextView
+            android:paddingLeft="5dp"
+            android:gravity="center_vertical"
+            android:id="@+id/taskName"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="할 일 이름"
+            android:textColor="@color/black"
+            android:textSize="25sp" />
+
+        <TextView
+            android:paddingLeft="10dp"
+
+            android:gravity="center_vertical"
+            android:layout_weight="7"
+            android:id="@+id/progress"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="(50%)"
+            android:textSize="20sp"
+            android:textColor="@color/red_orange"
+            />
+
+    </LinearLayout>
+    
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"></View>
+
+    <LinearLayout
+        android:id="@+id/ll_group_task1_2"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_weight="4"
+            android:layout_width="match_parent"
+            android:layout_height="30dp">
+
+            <TextView
+                android:paddingLeft="2dp"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_weight="1"
+                android:text="변경 :"
+                android:textSize="15sp" />
+
+            <TextView
+                android:gravity="center_vertical|left"
+                android:id="@+id/changed"
+                android:layout_weight="5"
+                android:layout_width="40dp"
+                android:layout_height="30dp"
+                android:text="장동주"
+                android:textSize="15sp"
+                />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
