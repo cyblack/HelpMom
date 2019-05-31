@@ -59,4 +59,12 @@ public interface ApiService {
     @POST("progress")
     Call<RegisterResult> progress(@Field("taskName") String taskName, @Field("progress") String progress,@Field("changedId") String changedId
     ,@Field("changed") String changed);
+
+    @FormUrlEncoded
+    @POST("roomDelete")
+    Call<RegisterResult> roomDelete(@Field("roomId") String roomId);
+
+    @FormUrlEncoded
+    @POST("roomOut")
+    Call<RegisterResult> roomOut(@Field("myId") String myId, @Field("roomId") String roomId);
 }
