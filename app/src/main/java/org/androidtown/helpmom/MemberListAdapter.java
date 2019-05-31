@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
@@ -12,9 +13,10 @@ import java.util.List;
 public class MemberListAdapter extends BaseAdapter {
     private Context context;
     private List<Member> memberList;
-
+    private ImageView img;
     private String leader;
     private String myName;
+
     public MemberListAdapter(Context context, List<Member> memberList, String leader,String myName){
         this.context = context;
         this.memberList = memberList;
@@ -42,20 +44,22 @@ public class MemberListAdapter extends BaseAdapter {
 
         View v = View.inflate(context,R.layout.member,null);
 
-        TextView memberName = v.findViewById(R.id.memberName);
+        TextView memberName = (TextView)v.findViewById(R.id.memberName);
 
 
         if(memberList.get(i).getMemberName().equals(leader)) {
-            memberName.setTextColor(Color.BLUE);
-
+            img=v.findViewById(R.id.imgView_rowItem_icon);
+            img.setImageResource(R.drawable.queen);
             if(memberList.get(i).getMemberName().equals(myName)){
-                memberName.setText(memberList.get(i).getMemberName() + "(리더) (나)");
+                memberName.setText(memberList.get(i).getMemberName());
+                memberName.setTextColor(Color.BLUE);
             }else {
-                memberName.setText(memberList.get(i).getMemberName() + "(리더)");
+                memberName.setText(memberList.get(i).getMemberName());
             }
         }else {
             if(memberList.get(i).getMemberName().equals(myName)){
-                memberName.setText(memberList.get(i).getMemberName() + "(나)");
+                memberName.setTextColor(Color.BLUE);
+                memberName.setText(memberList.get(i).getMemberName());
             }else {
                 memberName.setText(memberList.get(i).getMemberName());
             }
