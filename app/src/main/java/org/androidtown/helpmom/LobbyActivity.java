@@ -1,6 +1,9 @@
 package org.androidtown.helpmom;
 
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,6 +13,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,7 +25,7 @@ import java.util.List;
 public class LobbyActivity extends AppCompatActivity {
     Button btn_createRoom, btn_joinRoom;
     String _id,leader;
-
+    ImageView btn_delete_room;
 
     private RoomListAdapter roomAdapter;
 
@@ -62,6 +66,7 @@ public class LobbyActivity extends AppCompatActivity {
             joinedRoomList.add(r);
         }
         // arrayAdaper로 String을 listView에 바인딩, data를 listView에 display함.
+
 
         listView_joinedRoom.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

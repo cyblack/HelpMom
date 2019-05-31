@@ -11,7 +11,7 @@
     <ImageView
         android:background="@color/default_color"
         android:id="@+id/imgView_rowItem_icon"
-        android:layout_width="27dp"
+        android:layout_width="24dp"
         android:layout_height="24dp"
         android:layout_gravity="center_vertical"
         android:layout_marginLeft="3dp"
@@ -29,5 +29,12 @@
         android:paddingLeft="10dp"
         android:layout_height="wrap_content"
         />
-
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:id="@+id/btn_delete_room"
+            android:src="@drawable/delete"
+            android:layout_gravity="center_vertical"
+            android:layout_margin="3dp"
+            android:scaleType="fitXY"/>
 </LinearLayout>
