@@ -440,7 +440,7 @@ public class ManageTaskActivty extends AppCompatActivity {
                             tasks.add(t);
                         }
                     }
-                    displayTask(roomNumber, list_decided_tasks,tasks);
+                    displayTask(roomNumber, tasks);
 
                 }
                 @Override
@@ -450,7 +450,7 @@ public class ManageTaskActivty extends AppCompatActivity {
             });
     }
 
-    private void displayTask(String roomNumber,ArrayList<String> task,ArrayList<Task> tasks){
+    private void displayTask(String roomNumber, ArrayList<Task> tasks){
         Intent intent=new Intent();
         intent.putExtra("roomNumber", roomNumber);
         intent.putExtra("task", tasks);
