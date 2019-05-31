@@ -50,19 +50,24 @@ public class EvaluateActivity extends AppCompatActivity {
         confirm_feedback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-
                 if(validate()){
                     evaluate();
                 }
-
-
             }
         });
     }
 
-    private boolean validate(){
+    private boolean isInteger(String tmp){
 
+        try{
+            Integer.parseInt(tmp);
+            return true;
+        }catch (NumberFormatException e){
+            return false;
+        }
+    }
+
+    private boolean validate(){
 
         String p = point.getText().toString();
         boolean valid = true;
@@ -72,7 +77,12 @@ public class EvaluateActivity extends AppCompatActivity {
             point.setError("비었습니다");
             valid = false;
         }else{
-            inp = Integer.parseInt(p);
+            if(!isInteger(p)){
+                point.setError("문자가 섞여있습니다. 숫자만 입력하세요");
+                valid = false;
+            }else {
+                inp = Integer.parseInt(p);
+            }
         }
 
         if(feedback.length()==0){

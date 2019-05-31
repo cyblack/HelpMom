@@ -42,6 +42,7 @@ public class ManageTaskActivty extends AppCompatActivity {
 
     ListView listView_addedTask;
     EditText editText_addTask;
+
     Button btn_addTask;
     Button btn_delete_tasks;
     Button btn_confirm_tasks;
@@ -417,7 +418,6 @@ public class ManageTaskActivty extends AppCompatActivity {
 
 
             Call<RegisterResult> call = service.createTask(roomNumber,list_decided_tasks);
-
             call.enqueue(new Callback<RegisterResult>() {
                 @Override
                 public void onResponse(Call<RegisterResult> call, Response<RegisterResult> response) {

@@ -60,6 +60,16 @@ public class PerformTaskActivity extends AppCompatActivity {
         });
     }
 
+    private boolean isInteger(String tmp){
+
+        try{
+            Integer.parseInt(tmp);
+            return true;
+        }catch (NumberFormatException e){
+            return false;
+        }
+    }
+
     private boolean validate(){
 
 
@@ -71,7 +81,12 @@ public class PerformTaskActivity extends AppCompatActivity {
             performProgress.setError("비었습니다");
             valid = false;
         }else{
-            inp = Integer.parseInt(p);
+            if(!isInteger(p)){
+                performProgress.setError("문자가 섞여있습니다. 숫자만 입력하세요");
+                valid = false;
+            }else {
+                inp = Integer.parseInt(p);
+            }
         }
 
         if(p.isEmpty()){
@@ -89,7 +104,6 @@ public class PerformTaskActivity extends AppCompatActivity {
     }
 
     private void progress() {
-
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://ec2-54-180-79-126.ap-northeast-2.compute.amazonaws.com:3000/")
