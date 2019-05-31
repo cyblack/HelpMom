@@ -8,16 +8,15 @@ import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import java.security.acl.Group;
+import org.androidtown.helpmom.perform_and_evaluate.EvaluateActivity;
+import org.androidtown.helpmom.perform_and_evaluate.PerformTaskActivity;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -276,7 +275,6 @@ public class GroupActivity extends AppCompatActivity {
 
         // TODO Auto-generated method stub
 
-
         //res폴더의 menu플더안에 xml로 MenuItem추가하기.
 
         //mainmenu.xml 파일을 java 객체로 인플레이트(inflate)해서 menu객체에 추가
@@ -312,7 +310,7 @@ public class GroupActivity extends AppCompatActivity {
 
             case R.id.performTask:
 
-                Intent intent2=new Intent(GroupActivity.this,PerformTaskActivity.class);
+                Intent intent2=new Intent(GroupActivity.this, PerformTaskActivity.class);
                 intent2.putExtra("taskName",confirmedTaskList.get(index).getTaskName());
                 intent2.putExtra("myId",myid);
 
@@ -324,7 +322,7 @@ public class GroupActivity extends AppCompatActivity {
             case R.id.evaluateTask:
                 if(myid.equals(leader))
                 {
-                    Intent intent=new Intent(GroupActivity.this,EvaluateActivity.class);
+                    Intent intent=new Intent(GroupActivity.this, EvaluateActivity.class);
                     intent.putExtra("taskName",confirmedTaskList.get(index).getTaskName());
                     startActivityForResult(intent,2);
                 }

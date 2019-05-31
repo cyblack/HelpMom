@@ -1,4 +1,4 @@
-package org.androidtown.helpmom;
+package org.androidtown.helpmom.perform_and_evaluate;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -9,6 +9,10 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import org.androidtown.helpmom.ApiService;
+import org.androidtown.helpmom.R;
+import org.androidtown.helpmom.RegisterResult;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

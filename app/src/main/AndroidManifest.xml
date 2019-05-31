@@ -11,14 +11,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".PerformTaskActivity"
+        <activity android:name=".perform_and_evaluate.PerformTaskActivity"
             android:theme="@style/Theme.AppCompat.Light.Dialog"
             ></activity>
         <activity
             android:name=".TaskResultActivity"
             android:theme="@style/Theme.AppCompat.Light.Dialog" />
         <activity
-            android:name=".EvaluateActivity"
+            android:name=".perform_and_evaluate.EvaluateActivity"
             android:theme="@style/Theme.AppCompat.Light.Dialog" />
         <activity android:name=".SplashActivity">
             <intent-filter>
