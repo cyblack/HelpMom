@@ -39,19 +39,19 @@ public class TaskListAdapter extends BaseAdapter {
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
 
-        View v = View.inflate(context,R.layout.task,null);
+        View v = View.inflate(context,R.layout.task_1,null);
 
         TextView taskName = (TextView)v.findViewById(R.id.taskName);
         TextView progress = (TextView)v.findViewById(R.id.progress);
         TextView changed = (TextView)v.findViewById(R.id.changed);
-        TextView point = (TextView)v.findViewById(R.id.point);
-        TextView date = (TextView)v.findViewById(R.id.date);
+//        TextView point = (TextView)v.findViewById(R.id.point);
+//        TextView date = (TextView)v.findViewById(R.id.date);
 
         taskName.setText(taskList.get(i).getTaskName());
-        progress.setText(taskList.get(i).getProgress()+"%완료");
+        progress.setText(taskList.get(i).getProgress());
         changed.setText(taskList.get(i).getChangedName());
-        point.setText("leader : "+taskList.get(i).getPoint());
-        date.setText(taskList.get(i).getCreated());
+//        point.setText("leader : "+taskList.get(i).getPoint());
+//        date.setText(taskList.get(i).getCreated());
 
         return v;
     }
