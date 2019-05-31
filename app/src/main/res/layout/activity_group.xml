@@ -30,12 +30,22 @@
             android:layout_below="@id/members"
             />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="32dp"
+            android:layout_below="@id/memberList"
+            android:layout_marginTop="10dp"
+            android:layout_alignParentLeft="true"
+            android:text="오늘의 할 일"
+            android:textColor="@color/black"
+            android:textSize="20dp" />
         <Button
             android:background="@drawable/button_custom"
             android:id="@+id/taskListBtn"
             android:layout_width="wrap_content"
             android:layout_height="32dp"
-            android:text="할 일"
+            android:layout_alignParentRight="true"
+            android:text="할 일 추가"
             android:layout_below="@id/memberList"
             android:layout_marginTop="10dp"
             android:textSize="20dp"
