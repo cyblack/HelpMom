@@ -18,19 +18,21 @@
             android:gravity="center_vertical"
             android:id="@+id/taskName"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:text="할 일 이름"
             android:textColor="@color/black"
-            android:textSize="25sp" />
+            android:textSize="25sp"
+            android:layout_weight="1"
+            />
 
         <TextView
             android:paddingLeft="10dp"
 
-            android:gravity="center_vertical"
-            android:layout_weight="7"
+            android:gravity="center_vertical|right"
+            android:layout_weight="1"
             android:id="@+id/progress"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:text="(50%)"
             android:textSize="20sp"
             android:textColor="@color/red_orange"
@@ -57,17 +59,38 @@
                 android:paddingLeft="2dp"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
-                android:layout_weight="1"
                 android:text="변경 :"
                 android:textSize="15sp" />
 
             <TextView
-                android:gravity="center_vertical|left"
                 android:id="@+id/changed"
-                android:layout_weight="5"
-                android:layout_width="40dp"
-                android:layout_height="30dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical|left"
                 android:text="장동주"
+                android:textSize="15sp" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_weight="6"
+            android:layout_width="match_parent"
+            android:layout_height="30dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:gravity="center"
+                android:text="시각 :"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/date"
+                android:layout_width="108dp"
+                android:layout_height="match_parent"
+                android:text="3:00 AM"
+                android:gravity="center"
                 android:textSize="15sp"
                 />
 

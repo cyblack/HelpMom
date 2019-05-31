@@ -39,7 +39,7 @@ public class TaskListAdapter extends BaseAdapter {
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
 
-        View v = View.inflate(context,R.layout.task_1,null);
+        View v = View.inflate(context,R.layout.task,null);
 
         TextView taskName = (TextView)v.findViewById(R.id.taskName);
         TextView progress = (TextView)v.findViewById(R.id.progress);
