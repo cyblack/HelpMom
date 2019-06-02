@@ -15,5 +15,9 @@
     <color name="snow">#FFFDFD</color>
     <color name="light_green">#e8ffd8</color>
     <color name="light_black">#45484c</color>
+    <color name="orange_light1">#f4aa42</color>
+    <color name="dark_blue">#1c16dd</color>
+    <color name="red_alittle_pink">#f96143</color>
+    <color name="red">#ef0000</color>
     <!--<color name="kakaoTalk">#edf6f7</color>-->
 </resources>

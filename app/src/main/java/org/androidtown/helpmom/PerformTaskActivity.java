@@ -129,11 +129,10 @@ public class PerformTaskActivity extends AppCompatActivity {
     }
     public void back(){
         Intent intent = new Intent();
-        intent.putExtra("progress",performProgress.getText().toString()+"%");
+        intent.putExtra("progress",performProgress.getText().toString());
+        Log.d("back", "back:"+intent.getStringExtra("progress")+"");
         intent.putExtra("taskName",taskName);
         intent.putExtra("now",now);
-        Log.d("progress",performProgress.getText().toString());
-
         setResult(3,intent);
         finish();
     }
