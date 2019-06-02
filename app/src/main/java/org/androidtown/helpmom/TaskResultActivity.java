@@ -11,6 +11,8 @@ import android.widget.TextView;
 public class TaskResultActivity extends AppCompatActivity {
         Button backBtn;
         TextView content;
+        TextView score;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,9 +22,19 @@ public class TaskResultActivity extends AppCompatActivity {
 
         backBtn=findViewById(R.id.backBtn);
         content=findViewById(R.id.content);
+        score=findViewById(R.id.score);
 
         Intent intent=getIntent();
-        content.setText(intent.getStringExtra("comment"));
+        String comment=intent.getStringExtra("comment");
+        String point=intent.getStringExtra("score");
+        if(comment.equals("none"))
+        {
+            content.setText("코멘트가 없습니다.");
+        }
+        else
+        {content.setText(comment);}
+
+        score.setText(point+"점");
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
