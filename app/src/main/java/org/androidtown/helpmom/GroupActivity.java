@@ -62,7 +62,7 @@ public class GroupActivity extends AppCompatActivity {
         confirmedTaskList = new ArrayList<Task>();
 
         // 추가된코드: confirmedTskList에 아무거나 하나 넣어보자.
-        confirmedTaskList.add(new Task("설거지(아침)", "50%", "좋다" ,"70점","엄마",
+        confirmedTaskList.add(new Task("설거지(아침)", "50", "좋다" ,"70점","엄마",
                 "오후 3시"));
 
         memberAdapter = new MemberListAdapter(getApplicationContext(), joinedMemberList, leader,myid);
@@ -293,6 +293,9 @@ public class GroupActivity extends AppCompatActivity {
                         confirmedTaskList.get(i).setProgress(p);
                         confirmedTaskList.get(i).setChangedName(myid);
                         confirmedTaskList.get(i).setCreated(nw);
+
+
+
                         break;
                     }
                 }
