@@ -74,7 +74,7 @@ public class TaskListAdapter extends BaseAdapter {
             TextView date = (TextView)v.findViewById(R.id.date);
 
             // 6-02 : (진행중) 앞에 붙이기.
-            taskName.setText("(진행중)" + taskList.get(i).getTaskName());
+            taskName.setText("(진행중)"+taskList.get(i).getTaskName());
 
 
             progress.setText(taskList.get(i).getProgress());
