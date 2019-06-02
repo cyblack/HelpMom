@@ -51,15 +51,15 @@ public class MemberListAdapter extends BaseAdapter {
             img=v.findViewById(R.id.imgView_rowItem_icon);
             img.setImageResource(R.drawable.queen);
             if(memberList.get(i).getMemberName().equals(myName)){
-                memberName.setText(memberList.get(i).getMemberName());
-                memberName.setTextColor(Color.BLUE);
+                memberName.setText(memberList.get(i).getMemberName()+" (나)");
+                memberName.setTextColor(Color.MAGENTA);
             }else {
                 memberName.setText(memberList.get(i).getMemberName());
             }
         }else {
             if(memberList.get(i).getMemberName().equals(myName)){
-                memberName.setTextColor(Color.BLUE);
-                memberName.setText(memberList.get(i).getMemberName());
+                memberName.setTextColor(Color.MAGENTA);
+                memberName.setText(memberList.get(i).getMemberName()+" (나)");
             }else {
                 memberName.setText(memberList.get(i).getMemberName());
             }
