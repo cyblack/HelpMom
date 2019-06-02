@@ -4,7 +4,8 @@ import java.io.Serializable;
 
 public class Task implements Serializable {
 
-    String taskName,progress,comment,created,point,changedName;
+    // 6-02: changed
+    String taskName,progress,comment,created, point, changedName;
 
     public Task(String taskName,String progress,String comment,String point, String changedName,String created){
         this.taskName = taskName;

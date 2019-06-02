@@ -29,9 +29,12 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
+import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -382,27 +385,35 @@ public class ManageTaskActivty extends AppCompatActivity {
 
 
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-    }
+        @Override
+        public void onBackPressed() {
+            super.onBackPressed();
+        }
 
-    // Task가 추가될 때마다 마지막 row로 자동스크롤.
-    public void scrollMyListViewToBottom() {
-        listView_addedTask.post(new Runnable() {
-            @Override
-            public void run() {
-                // select the last row, so it will scroll into view..
-                listView_addedTask.setSelection(adapter.getCount() - 1);
-            }
-        });
+        // Task가 추가될 때마다 마지막 row로 자동스크롤.
+        public void scrollMyListViewToBottom() {
+            listView_addedTask.post(new Runnable() {
+                @Override
+                public void run() {
+                    // select the last row, so it will scroll into view..
+                    listView_addedTask.setSelection(adapter.getCount() - 1);
+                }
+            });
     }
     public void Confirm(){
         Intent intent=getIntent();
         final String roomNumber=intent.getStringExtra("roomNumber");
+        Log.d("Confirm", roomNumber + " "+"Confirm동작");
+
+//        OkHttpClient client = new OkHttpClient.Builder()
+//                .connectTimeout(20, TimeUnit.SECONDS)
+//                .readTimeout(20, TimeUnit.SECONDS)
+//                .writeTimeout(20, TimeUnit.SECONDS)
+//                .build();
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://ec2-54-180-79-126.ap-northeast-2.compute.amazonaws.com:3000/")
+//                .client(client)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
@@ -415,6 +426,7 @@ public class ManageTaskActivty extends AppCompatActivity {
                 list_decided_tasks.add(datas.get(i).getTask_detail());
             }
         }
+        Log.d("list_decided_tasks", "number of added list_decided_tasks: "+list_decided_tasks.size()+"");
 
 
             Call<RegisterResult> call = service.createTask(roomNumber,list_decided_tasks);
@@ -423,6 +435,7 @@ public class ManageTaskActivty extends AppCompatActivity {
                 public void onResponse(Call<RegisterResult> call, Response<RegisterResult> response) {
                     if(!response.isSuccessful()){
                         Toast.makeText(getApplicationContext(), "code " + response.code(), Toast.LENGTH_SHORT).show();
+                        Log.d("response_failed", "code:"+response.code());
                         return;
                     }
                     RegisterResult r = response.body();
@@ -440,11 +453,14 @@ public class ManageTaskActivty extends AppCompatActivity {
                             tasks.add(t);
                         }
                     }
+
+                    Log.d("taskCheck", tasks.size()+"");
                     displayTask(roomNumber, tasks);
 
                 }
                 @Override
                 public void onFailure(Call<RegisterResult> call, Throwable t) {
+                    Log.d("onFailure", "실패"+t.toString());
                     Toast.makeText(getApplicationContext(), "실패: " + t.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             });
@@ -453,7 +469,8 @@ public class ManageTaskActivty extends AppCompatActivity {
     private void displayTask(String roomNumber, ArrayList<Task> tasks){
         Intent intent=new Intent();
         intent.putExtra("roomNumber", roomNumber);
-        intent.putExtra("task", tasks);
+        // 6-02: 추가된코드 (Serilizable 캐스팅)
+        intent.putExtra("task", (Serializable)tasks);
         setResult(1,intent);
         finish();
     }
