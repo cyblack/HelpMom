@@ -69,7 +69,7 @@ public class LobbyActivity extends AppCompatActivity {
 
         //onRequestRoomList();
         listView_joinedRoom.setAdapter(roomAdapter);
-        userId.setText(_id);
+        userId.setText("("+_id+")");
         userName.setText(name);
         for(int i=0;i<roomList.length;i++){
             Room r = new Room(roomList[i],roomMaker.get(roomList[i]),hashMap.get(roomList[i]));

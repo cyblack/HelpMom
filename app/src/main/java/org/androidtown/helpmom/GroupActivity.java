@@ -25,7 +25,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class GroupActivity extends AppCompatActivity {
     ListView memberList, taskList;
-    Button taskListButton;
+    Button manageTaskListButton;
     String myid, roomName, leader,roomNumber;
 
     private List<Member> joinedMemberList;
@@ -41,7 +41,7 @@ public class GroupActivity extends AppCompatActivity {
 
         memberList = findViewById(R.id.memberList);
         taskList = findViewById(R.id.taskList);
-        taskListButton = findViewById(R.id.taskListBtn);
+        manageTaskListButton = findViewById(R.id.taskListBtn);
         registerForContextMenu(taskList);
 
         Intent intent = getIntent();
@@ -55,7 +55,7 @@ public class GroupActivity extends AppCompatActivity {
         Log.d("roomNumber", roomNumber);
 
         if (!myid.equals(leader)) {//리더가 아니면 안보이게하기
-            taskListButton.setVisibility(View.INVISIBLE);
+            manageTaskListButton.setVisibility(View.INVISIBLE);
         }
 
         joinedMemberList = new ArrayList<Member>();
@@ -75,7 +75,7 @@ public class GroupActivity extends AppCompatActivity {
         memberList.setAdapter(memberAdapter);
         taskList.setAdapter(taskAdapter);
 
-        taskListButton.setOnClickListener(new View.OnClickListener() {
+        manageTaskListButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent taskIntent = new Intent(GroupActivity.this, ManageTaskActivty.class);

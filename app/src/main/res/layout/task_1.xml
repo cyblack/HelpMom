@@ -41,15 +41,15 @@
                 android:textSize="16sp"
                 android:textColor="@color/light_black"
                 />
+
             <TextView
                 android:id="@+id/progress"
-                android:layout_marginLeft="6dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="6dp"
                 android:text="50%"
                 android:textColor="@color/red_orange"
-                android:textSize="18sp"
-                />
+                android:textSize="18sp" />
         </LinearLayout>
 
 
