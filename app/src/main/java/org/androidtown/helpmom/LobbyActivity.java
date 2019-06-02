@@ -218,6 +218,5 @@ public class LobbyActivity extends AppCompatActivity {
             joinedRoomList.add(r);
         }
         roomAdapter.notifyDataSetChanged();
-
     }
 }

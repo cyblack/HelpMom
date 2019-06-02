@@ -427,14 +427,14 @@ public class ManageTaskActivty extends AppCompatActivity {
                     }
                     RegisterResult r = response.body();
 
-                    int sz = r.getTask().length;
-                    Log.d("dj", sz+"");
                     ArrayList<Task> tasks = new ArrayList<Task>();
 
                     if(r.getRes().equals("one")){
                         Log.d("one","one");
 
                     }else {
+                        int sz = r.getTask().length;
+
                         for (int i = 0; i < sz; i++) {
                             Task t = new Task(r.getTask()[i], r.getProgress()[i], r.getComment()[i], r.getPoint()[i], r.getChangedName()[i], r.getCreated()[i]);
                             tasks.add(t);

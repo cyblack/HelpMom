@@ -191,7 +191,7 @@ public class GroupActivity extends AppCompatActivity {
     }
 
     //Task삭제 구현함수
-    private void onDeleteTask() {
+    private void onDeleteTask(String taskName,final int idx) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://ec2-54-180-79-126.ap-northeast-2.compute.amazonaws.com:3000/")
                 .addConverterFactory(GsonConverterFactory.create())
@@ -199,7 +199,7 @@ public class GroupActivity extends AppCompatActivity {
 
         ApiService service = retrofit.create(ApiService.class);
         //수정필요.
-        Call<RegisterResult> call = service.getTask(roomNumber);
+        Call<RegisterResult> call = service.deleteTask(roomNumber,taskName);
 
         call.enqueue(new Callback<RegisterResult>() {
             @Override
@@ -212,6 +212,13 @@ public class GroupActivity extends AppCompatActivity {
 
                 RegisterResult r = response.body();
 
+                if(r.getRes().equals("fail")){
+                    Toast.makeText(getApplicationContext(), "다시 시도해주세요", Toast.LENGTH_SHORT).show();
+                }else{
+                    deleteUI(idx);
+                    Toast.makeText(getApplicationContext(), "삭제되었습니다", Toast.LENGTH_SHORT).show();
+                }
+
             }
 
             @Override
@@ -222,6 +229,15 @@ public class GroupActivity extends AppCompatActivity {
         });
 
     }
+
+    private void deleteUI(int idx){
+        //UI에서 삭제시켜야함
+
+
+        confirmedTaskList.remove(idx);
+        taskAdapter.notifyDataSetChanged();
+    }
+
 
     private void check1() {
         memberAdapter.notifyDataSetChanged();
@@ -367,7 +383,8 @@ public class GroupActivity extends AppCompatActivity {
                 if(myid.equals(leader))
                 {
                     //TASK삭제 구현하기
-                    onDeleteTask();
+
+                    onDeleteTask(confirmedTaskList.get(index).getTaskName(),index);
                 }
                 else
                 {

@@ -67,4 +67,8 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("roomOut")
     Call<RegisterResult> roomOut(@Field("myId") String myId, @Field("roomId") String roomId);
+
+    @FormUrlEncoded
+    @POST("deleteTask")
+    Call<RegisterResult> deleteTask(@Field("roomNum") String roomNum, @Field("taskName") String taskName);
 }
